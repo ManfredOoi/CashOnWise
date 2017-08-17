@@ -44,13 +44,17 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        try{
+        String resultQR = "";
+        double Money;
             if(result != null){
                 if(result.getContents() == null){
                     Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(this, "Result: " + result.getContents(),Toast.LENGTH_LONG).show();
+                    resultQR = result.getContents();
+                    resultQR = resultQR.substring(14, 19); // no need 0, start 1
+                    Money = Double.parseDouble(resultQR) / 100;
+                    Toast.makeText(this, "Result: RM" + Money, Toast.LENGTH_LONG).show();
                     //Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse(result.getContents()));
                     //startActivity(browse);
                 }
@@ -58,8 +62,6 @@ public class PaymentActivity extends AppCompatActivity {
             else {
                 super.onActivityResult(requestCode, resultCode, data);
             }
-        }catch(Exception e){
-            Toast.makeText(this, "The format may be incorrect",Toast.LENGTH_LONG).show();
-        }
+
     }
 }

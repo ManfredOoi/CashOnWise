@@ -15,22 +15,48 @@
     <string name="menu_changePassword">Change My Pin Password</string>
     <string name="menu_logout">Log out</string>
 
+    <string name="button_login">Login</string>
+    <string name="button_signup">Sign Up</string>
     <string name="button_createnewaccount">Create New Account Now</string>
     <string name="button_scan">Click to make payment now</string>
 
     <string name="hint_personal_name">Enter Your Name Here</string>
     <string name="hint_personal_ic">Enter Your IC Here</string>
     <string name="hint_personal_address">Enter Your Home Address Here</string>
+    <string name="hint_personal_pos">Enter Your Pos Code Here</string>
     <string name="hint_personal_contactno">Enter Your Contact Number Here</string>
     <string name="hint_personal_email">Enter Your Personal Email Here</string>
-    <string name="hint_personal_password">Enter Your Password</string>
+    <string name="hint_personal_password">Enter Your Password For Cow Account</string>
+    <string name="hint_verify_ID">Enter Your Account ID</string>
+    <string name="hint_verify_password">Enter Your Password</string>
     <string name="hint_personal_repassword">Re-Enter Your Password</string>
     <string name="hint_personal_pin">Enter Your Pin Number</string>
     <string name="hint_personal_repin">Re-Enter Your Pin Number</string>
 
-
+    <string name="label_personal">Personal Detail</string>
+    <string name="label_address">Address Location Detail</string>
+    <string name="label_email">Personal Account and Setup</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_payment">COW Pay</string>
     <string name="title_activity_signup">Sign Up Your New Account</string>
+
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+
+    <string-array name="Mstate_arr">
+        <item>Kedah</item>
+        <item>Perlis</item>
+        <item>Pulau Pinang</item>
+        <item>Perak</item>
+        <item>Kuantan</item>
+        <item>Melaka</item>
+        <item>Terengganu</item>
+        <item>Selangor</item>
+        <item>Negeri Sembilan</item>
+        <item>Johor Bharu</item>
+        <item>Sabah</item>
+        <item>Sarawak</item>
+        <item>Pahang</item>
+    </string-array>
 </resources>
