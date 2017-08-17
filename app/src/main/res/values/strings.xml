@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">CashOnWise</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_profile">profile</string>
+    <string name="menu_balance">My Balance</string>
+    <string name="menu_topup">Top Up</string>
+    <string name="menu_payment">Pay Money</string>
+    <string name="menu_history">Transaction History</string>
+    <string name="menu_changePassword">Change My Pin Password</string>
+    <string name="menu_logout">Log out</string>
+    <string name="title"></string>
+
+    <string name="button_scan">Click to make payment now</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_payment">COW Pay</string>
 </resources>

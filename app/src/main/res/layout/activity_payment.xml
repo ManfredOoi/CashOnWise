@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.cashonwise.cashonwise.PaymentActivity">
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/button_scan"
+        style="@style/button_style"
+        android:text="@string/button_scan"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>

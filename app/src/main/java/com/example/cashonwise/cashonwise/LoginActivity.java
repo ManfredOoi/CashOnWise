@@ -1,5 +1,6 @@
 package com.example.cashonwise.cashonwise;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button signUpButton;
     private Button loginButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check the password
 
         // Success and proceed
+        Intent goToMenuNavi = new Intent(this, MenuActivity.class);
+        startActivity(goToMenuNavi);
     }
 }

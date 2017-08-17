@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/textView"
             style="@style/textView_style"
-            android:text="Be Wise While Spent" />
+            android:text="Be Wise While Spend" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -46,10 +46,10 @@
         <Button
             android:id="@+id/loginButton"
             style="@style/button_style"
+            android:onClick="verifyAccount"
             android:text="Login" />
 
         <Button
-
             android:id="@+id/signUpButton"
             style="@style/button_style"
             android:text="Sign Up" />
