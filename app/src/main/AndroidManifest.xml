@@ -28,14 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-
-        <activity android:name=".SignupActivity"
+        <activity
+            android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
             android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+        <activity android:name=".MyActivity"></activity>
     </application>
 
 </manifest>
