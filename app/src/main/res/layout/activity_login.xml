@@ -52,6 +52,7 @@
         <Button
             android:id="@+id/signUpButton"
             style="@style/button_style"
+            android:onClick="toSignUp"
             android:text="Sign Up" />
 
         <TextView

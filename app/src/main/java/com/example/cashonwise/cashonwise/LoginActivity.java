@@ -42,4 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent goToMenuNavi = new Intent(this, MenuActivity.class);
         startActivity(goToMenuNavi);
     }
+
+    public void toSignUp(View view){
+        Intent goToSignUp = new Intent(this, SignupActivity.class);
+        startActivity(goToSignUp);
+    }
 }

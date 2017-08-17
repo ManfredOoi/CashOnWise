@@ -3,32 +3,32 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_top_up"
+            android:icon="@drawable/ic_attach_money_black_24dp"
             android:title="@string/menu_topup" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_transaction_history"
+            android:icon="@drawable/ic_history_black_24dp"
             android:title="@string/menu_history" />
         <item
             android:id="@+id/nav_payment"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_aspect_ratio_black_24dp"
             android:title="@string/menu_payment" />
     </group>
 
-    <item android:title="Account">
+    <item android:title="Account Settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
+                android:id="@+id/nav_change_pin"
+                android:icon="@drawable/ic_fiber_pin_black_24dp"
                 android:title="@string/menu_changePassword" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="@string/menu_logout" />
         </menu>
     </item>
