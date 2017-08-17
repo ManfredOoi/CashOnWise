@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CashOnWise</string>
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_menu">Cow Menu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,7 +18,18 @@
     <string name="button_createnewaccount">Create New Account Now</string>
     <string name="button_scan">Click to make payment now</string>
 
-    <string name="hint_"></string>
+    <string name="hint_personal_name">Enter Your Name Here</string>
+    <string name="hint_personal_ic">Enter Your IC Here</string>
+    <string name="hint_personal_address">Enter Your Home Address Here</string>
+    <string name="hint_personal_contactno">Enter Your Contact Number Here</string>
+    <string name="hint_personal_email">Enter Your Personal Email Here</string>
+    <string name="hint_personal_password">Enter Your Password</string>
+    <string name="hint_personal_repassword">Re-Enter Your Password</string>
+    <string name="hint_personal_pin">Enter Your Pin Number</string>
+    <string name="hint_personal_repin">Re-Enter Your Pin Number</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_payment">COW Pay</string>
     <string name="title_activity_signup">Sign Up Your New Account</string>
