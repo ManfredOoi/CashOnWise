@@ -7,41 +7,130 @@
     android:layout_height="match_parent"
     tools:context="com.example.cashonwise.cashonwise.SignupActivity">
 
-    <TextView
-        android:id="@+id/titleSignUp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        android:text="" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+            </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+            <EditText
+            android:id="@+id/editTextName"
+            style="@style/editText_style"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            android:hint="@string/hint_personal_name"
+            android:inputType="textPersonName"
+            />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_createnewaccount" />
+        <EditText
+            android:id="@+id/editTextIC"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_ic"
+            android:inputType="textPersonName"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
 
+        <EditText
+            android:id="@+id/editTextContact"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_contactno"
+            android:inputType="textPersonName"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_address"
+            android:inputType="textMultiLine"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_email"
+            android:inputType="textPersonName"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_password"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextRePassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_repassword"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextPin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_pin"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+        <EditText
+            android:id="@+id/editTextRePin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            style="@style/editText_style"
+            android:hint="@string/hint_personal_repin"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_top"
+            />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/button_style"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="successfulSignUp"
+                android:text="@string/button_createnewaccount" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

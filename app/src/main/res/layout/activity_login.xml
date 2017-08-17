@@ -34,13 +34,13 @@
         <EditText
             android:id="@+id/editTextEmail"
             style="@style/editText_style"
-            android:hint="Enter your Email"
+            android:hint="@string/hint_personal_email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextPassword"
             style="@style/editText_style"
-            android:hint="Enter your password"
+            android:hint="@string/hint_personal_password"
             android:inputType="textPassword" />
 
         <Button
