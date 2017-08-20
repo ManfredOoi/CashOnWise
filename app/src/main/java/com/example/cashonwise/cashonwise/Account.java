@@ -18,6 +18,14 @@ public class Account {
 
     }
 
+    public Account(String name, String icnum, String contactnum, String address, String email) {
+        this.name = name;
+        this.icnum = icnum;
+        this.contactnum = contactnum;
+        this.address = address;
+        this.email = email;
+    }
+
     public Account(String name, String icnum, String contactnum, String address, String email, String password, String pin) {
         this.name = name;
         this.icnum = icnum;

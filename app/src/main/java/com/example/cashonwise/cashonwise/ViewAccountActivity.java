@@ -7,8 +7,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,16 +33,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ViewAccountActivity extends AppCompatActivity {
+import static com.example.cashonwise.cashonwise.R.id.spinnerState;
+
+public class ViewAccountActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "com.example.cashonwise.cashonwise";
 
     private ProgressDialog pDialog;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
     RequestQueue queue;
-    TextView textViewName, textViewIC, textViewContact, textViewAddress, textViewEmail, textViewPassword, textViewPIN;
-    EditText editTextName,editTextIC,editTextContact,editTextAddress,editTextEmail;
+    TextView textViewName, textViewIC, textViewContact, textViewAddress, textViewEmail;
+    Spinner spinnerState;
+    String homeAddress;
+    CheckBox checkBoxAddress;
+    EditText editTextName, editTextIC, editTextContact, editTextAddress, editTextPosCode, editTextEmail,editTextFullAddress ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,21 +61,45 @@ public class ViewAccountActivity extends AppCompatActivity {
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
        }
-        textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewIC = (TextView) findViewById(R.id.textViewIC);
-        textViewContact = (TextView) findViewById(R.id.textViewContact);
-        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
-        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
-        //textViewPassword = (TextView) findViewById(R.id.textViewPassword);
-        //textViewPIN = (TextView) findViewById(R.id.textViewPIN);
+        spinnerState = (Spinner)findViewById(R.id.spinnerState);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Mstate_arr, android.R.layout.simple_spinner_item);
+        spinnerState.setAdapter(adapter);
+        spinnerState.setOnItemSelectedListener(ViewAccountActivity.this);
+        checkBoxAddress = (CheckBox)findViewById(R.id.checkBoxAddress);
 
-        editTextName = (EditText) findViewById(R.id.editTextName) ;
-        editTextIC = (EditText) findViewById(R.id.editTextIC) ;
-        editTextContact = (EditText) findViewById(R.id.editTextContact) ;
-        editTextAddress = (EditText) findViewById(R.id.editTextAddress) ;
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail) ;
+
+
+        checkBoxAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //is chkIos checked?
+                if (((CheckBox) v).isChecked()) {
+                    editTextAddress.setEnabled(true);
+                    editTextPosCode.setEnabled(true);
+                    editTextFullAddress.setEnabled(false);
+                    spinnerState.setEnabled(true);
+                } else {
+                    editTextAddress.setEnabled(false);
+                    editTextPosCode.setEnabled(false);
+                    editTextFullAddress.setEnabled(true);
+                    spinnerState.setEnabled(false);
+                }
+            }
+        });
+        editTextName = (EditText)findViewById(R.id.editTextName);
+        editTextIC = (EditText)findViewById(R.id.editTextIC);
+        editTextContact = (EditText)findViewById(R.id.editTextContact);
+        editTextFullAddress = (EditText)findViewById(R.id.editTextFullAddress);
+        editTextAddress = (EditText)findViewById(R.id.editTextAddress);
+        editTextPosCode = (EditText)findViewById(R.id.editTextPosCode);
+        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
+        editTextAddress.setEnabled(false);
+        editTextPosCode.setEnabled(false);
+        spinnerState.setEnabled(false);
+
         downloadCourse(getApplicationContext(), GET_URL);
     }
+
 
     private boolean isConnected() {
         ConnectivityManager cm =
@@ -90,35 +126,30 @@ public class ViewAccountActivity extends AppCompatActivity {
                             //caList.clear();
                             for (int i = 0; i < response.length(); i++) {
 
-                                JSONObject courseResponse = (JSONObject) response.get(i);
+                                JSONObject accountResponse = (JSONObject) response.get(i);
 
-                                String id = courseResponse.getString("id");
+                                String id = accountResponse.getString("id");
 
                                 if(id.matches("1")) {
-                                    String name = courseResponse.getString("name");
-                                    String icnum = courseResponse.getString("icnum");
-                                    String contactnum = courseResponse.getString("contactnum");
-                                    String address = courseResponse.getString("address");
-                                    String email = courseResponse.getString("email");
-                                    String password = courseResponse.getString("password");
-                                    String pin = courseResponse.getString("pin");
+                                    String name = accountResponse.getString("name");
+                                    String icnum = accountResponse.getString("icnum");
+                                    String contactnum = accountResponse.getString("contactnum");
+                                    String address = accountResponse.getString("address");
+                                    String email = accountResponse.getString("email");
 
-                                    Account account = new Account(name, icnum, contactnum, address, email, password, pin);
-                                    //caList.add(account);
-                                    //loadCourse();
+                                    Account account = new Account(name, icnum, contactnum, address, email);
 
                                     editTextName.setText(account.getName());
                                     editTextIC.setText(account.getIcnum());
                                     editTextContact.setText(account.getContactnum());
-                                    editTextAddress.setText(account.getAddress());
+                                    editTextFullAddress.setText(account.getAddress());
                                     editTextEmail.setText(account.getEmail());
 
-
-                                    textViewName.setText(textViewName.getText() + ":");
-                                    textViewIC.setText(textViewIC.getText() + ":");
-                                    textViewContact.setText(textViewContact.getText() + ":");
-                                    textViewAddress.setText(textViewAddress.getText() + ":");
-                                    textViewEmail.setText(textViewEmail.getText() + ":");
+                                    //textViewName.setText(textViewName.getText() + ":");
+                                    //textViewIC.setText(textViewIC.getText() + ":");
+                                    //textViewContact.setText(textViewContact.getText() + ":");
+                                    //textViewAddress.setText(textViewAddress.getText() + ":");
+                                    //textViewEmail.setText(textViewEmail.getText() + ":");
                                     //textViewPassword.setText(textViewPassword.getText() + ":");
                                     //textViewPIN.setText(textViewPIN.getText() + ":");
                                 }
@@ -154,24 +185,64 @@ public class ViewAccountActivity extends AppCompatActivity {
             queue.cancelAll(TAG);
         }
     }
-    public void SaveChange(View v){
-        Account account = new Account();
-
-        account.setId("1");
-        account.setName(editTextName.getText().toString());
-        account.setIcnum(editTextIC.getText().toString());
-        account.setContactnum(editTextContact.getText().toString());
-        account.setAddress(editTextAddress.getText().toString());
-        account.setEmail(editTextEmail.getText().toString());
-
-        try {
-            makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/save_change.php", account);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+    public void onClickSave(View view){
+        if (editTextName.getText().toString().isEmpty() || editTextIC.getText().toString().isEmpty() || editTextContact.getText().toString().isEmpty()   || editTextEmail.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please Fill Up All the Detail.", Toast.LENGTH_LONG).show();
+        }else{
+            if(isEmailValid(editTextEmail.getText().toString())){
+                Account account = new Account();
+
+                            editTextName.getText().toString();
+                            editTextIC.getText().toString();
+                            editTextContact.getText().toString();
+                            editTextEmail.getText().toString();
+                if (checkBoxAddress.isChecked()) {
+                    homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
+                    account.setAddress(homeAddress);
+                }else{
+                    account.setAddress(editTextFullAddress.getText().toString());
+                }
+
+                            account.setId("1");
+                            account.setName(editTextName.getText().toString());
+                            account.setIcnum(editTextIC.getText().toString());
+                            account.setContactnum(editTextContact.getText().toString());
+
+                            account.setEmail(editTextEmail.getText().toString());
+
+                            try {
+
+                                makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/save_change.php", account);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+
+
+            }else{
+                Toast.makeText(getApplicationContext(), "Your Email Format is Wrong, Please Confirm.", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
     public void btncancel(View v){
         finish();
     }
