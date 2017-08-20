@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
+import java.security.MessageDigest;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextID;
-    private EditText password;
+    private EditText editTextPassword;
+    private Button chkBoxRememberMe;
     private Button signUpButton;
     private Button loginButton;
+    private String AES = "AES", password = "COW12345";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +36,19 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         editTextID = (EditText)findViewById(R.id.editTextID);
-        password = (EditText)findViewById(R.id.editTextPassword);
+        editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        chkBoxRememberMe = (CheckBox)findViewById(R.id.checkBoxRememberMe);
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
 
     }
 
     public void verifyAccount(View view){
-        if(editTextID.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+        if(editTextID.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill In Your Account Detail", Toast.LENGTH_SHORT).show();
         }else {
-            // check existing ID
-            if(editTextID.getText().toString().equals("test") && password.getText().toString().equals("test")){
+            // check existing ID and decrypt password
+            if(editTextID.getText().toString().equals("test") && editTextPassword.getText().toString().equals("test")){
 
                 // Success and proceed
                 Intent goToMenuNavi = new Intent(this, MenuActivity.class);
@@ -54,4 +63,24 @@ public class LoginActivity extends AppCompatActivity {
         Intent goToSignUp = new Intent(this, SignupActivity.class);
         startActivity(goToSignUp);
     }
+
+    private String decrypt(String encryptedPassword, String password)throws Exception{
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodedValue = Base64.decode(encryptedPassword, Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
+
+    private SecretKeySpec generateKey(String password) throws Exception{
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
+    }
+
 }

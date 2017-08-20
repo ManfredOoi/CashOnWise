@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="5dp"
     app:layout_collapseParallaxMultiplier="1.0"
     tools:context="com.example.cashonwise.cashonwise.SignupActivity">
 
@@ -17,10 +18,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/tv_registartion_title"
+                android:textColor="#00ff73"
+                />
+
+            <TextView
                 android:id="@+id/lblPersonal"
                 android:layout_width="match_parent"
                 android:textColor="#00ff73"
                 android:layout_height="wrap_content"
+                android:textSize="22sp"
                 android:text="@string/label_personal" />
 
             <android.support.design.widget.TextInputLayout
@@ -69,6 +81,7 @@
 
             <TextView
                 android:id="@+id/lblAddress"
+                android:textSize="22sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#00ff73"
@@ -107,7 +120,7 @@
                 android:id="@+id/spinnerState"
                 app:ms_arrowColor="#00ff90"
                 app:ms_arrowSize="16dp"
-                app:ms_floatingLabelColor="#ff0004"
+                app:ms_floatingLabelColor="#969696"
                 app:ms_floatingLabelText="Please Select Your State"
                 app:ms_hint="Please Choose"
                 app:ms_hintColor="#969696"
@@ -117,6 +130,7 @@
 
             <TextView
                 android:id="@+id/lblEmail"
+                android:textSize="22sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#00ff73"

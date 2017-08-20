@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CashOnWise</string>
+    <string name="nameOfApplication">Cash On Wise</string>
     <string name="title_activity_menu">Cow Menu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -18,7 +19,18 @@
     <string name="button_login">Login</string>
     <string name="button_signup">Sign Up</string>
     <string name="button_createnewaccount">Create New Account Now</string>
-    <string name="button_scan">Click to make payment now</string>
+    <string name="button_scan">Click to Scan QR now</string>
+    <string name="button_proceed">Proceed Payment</string>
+    <string name="button_forgot">Forget My Password</string>
+
+    <string name="tv_step1">Step 1: Click To Scan The QR Code</string>
+    <string name="tv_step2">Step 2: Confirm The Amount</string>
+    <string name="tv_step3">Step 3: Enter Pin Number and Click Proceed Payment</string>
+    <string name="tv_thanks">Thank You For Using COW Pay, Your Payment Is In Process. Please be Patient.</string>
+    <string name="tv_registartion_title">Account Registration</string>
+    <string name="tv_signup">No Account? Hurry Up And Click On Sign Up Button</string>
+
+    <string name="chk_remember_me">Always Remember Me</string>
 
     <string name="hint_personal_name">Enter Your Name Here</string>
     <string name="hint_personal_ic">Enter Your IC Here</string>
@@ -38,11 +50,11 @@
     <string name="label_email">Personal Account and Setup</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_payment">COW Pay</string>
+    <string name="title_activity_payment">Cow Pay</string>
     <string name="title_activity_signup">Sign Up Your New Account</string>
 
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
 
     <string-array name="Mstate_arr">
         <item>Kedah</item>
