@@ -22,6 +22,11 @@ public class Account {
         this.id = id;
     }
 
+    public Account(String id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
     public Account(String name, String icnum, String contactnum, String address, String email) {
         this.name = name;
         this.icnum = icnum;
