@@ -40,8 +40,21 @@
                 android:value=".LoginActivity" />
         </activity>
 
-        <activity android:name=".TransactionHistoryActivity" />
-        <activity android:name=".TopUpActivity"></activity>
+        <activity android:name=".TransactionHistoryActivity"
+            android:label="@string/title_activity_transactionHistory"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+
+        <activity android:name=".TopUpActivity"
+            android:label="@string/title_activity_topUp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
     </application>
 
 </manifest>
