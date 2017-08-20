@@ -1,6 +1,5 @@
 package com.example.cashonwise.cashonwise;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +17,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,19 +33,15 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    public static final String TAG = "com.example.cashonwise.cashonwise";
     Spinner spinnerState;
     EditText editTextName, editTextIC, editTextContact, editTextAddress, editTextPosCode, editTextEmail, editTextPassword, editTextRePassword, editTextPin, editTextRepin;
     String AES = "AES", password = "COW12345", homeAddress;
     String encryptedPassword, encryptedPin, decryptedPassword, decryptedPin;
-
     int numChar, numberM;
-    String accountID,LastID;
+    String accountID;
     String incrementAccountID = "";
     char checkChar;
-    private ProgressDialog pDialog;
-    RequestQueue queue;
-    private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
+    public final static String test = "THis";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +52,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         spinnerState.setAdapter(adapter);
         spinnerState.setOnItemSelectedListener(SignupActivity.this);
 
-        pDialog = new ProgressDialog(this);
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextIC = (EditText)findViewById(R.id.editTextIC);
         editTextContact = (EditText)findViewById(R.id.editTextContact);
@@ -70,7 +62,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         editTextRePassword = (EditText)findViewById(R.id.editTextRePassword);
         editTextPin = (EditText)findViewById(R.id.editTextPin);
         editTextRepin = (EditText)findViewById(R.id.editTextRePin);
-        findLastID(getApplicationContext(), GET_URL);
 
     }
 
@@ -97,8 +88,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())){
                     if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
                         try{
-
-                            //Toast.makeText(getApplicationContext(), "Error: " + LastID , Toast.LENGTH_LONG).show();
                             autoIDGenerate();
                             editTextName.getText().toString();
                             editTextIC.getText().toString();
@@ -121,13 +110,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             account.setPassword(encryptedPassword);
                             account.setPin(encryptedPin);
                             successfulSignUp();
+
                             try {
                                 makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
                         }
@@ -180,8 +169,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void autoIDGenerate(){
-
-        accountID = LastID;
+        accountID = "";
         if(accountID != null){
             numChar = 0;
             for(int i = 0 ; i < accountID.length(); i++){
@@ -229,50 +217,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             incrementAccountID = "C0001";
         }
 
-    }
-    private void findLastID(Context context, String url) {
-        // Instantiate the RequestQueue
-        queue = Volley.newRequestQueue(context);
-
-        if (!pDialog.isShowing())
-            pDialog.setMessage("Loading...");
-        pDialog.show();
-
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            //caList.clear();
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject accountResponse = (JSONObject) response.get(i);
-                                LastID = accountResponse.getString("id");
-
-                            }
-
-                            if (pDialog.isShowing())
-                                pDialog.dismiss();
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (pDialog.isShowing())
-                            pDialog.dismiss();
-                    }
-                });
-
-        // Set the tag on the request.
-        jsonObjectRequest.setTag(TAG);
-
-        // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
     }
     public void makeServiceCall(Context context, String url, final Account account) {
         //mPostCommentResponse.requestStarted();

@@ -31,7 +31,6 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "com.example.cashonwise.cashonwise";
     List<Account> acList;
