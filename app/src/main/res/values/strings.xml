@@ -100,4 +100,8 @@
     <string name="password">Password</string>
     <string name="pin">Pin</string>
 
+    <!-- Forget Password  -->
+    <string name="forgetPassword">Forget Password</string>
+    <string name="loginId">Login ID</string>
+    <string name="yourLoginId">Your Login ID</string>
 </resources>

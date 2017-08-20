@@ -63,10 +63,9 @@
 
         <Button
             android:id="@+id/buttonForgot"
+            style="@style/button_style"
             android:layout_width="321dp"
             android:layout_gravity="center"
-            style="@style/button_style"
-            android:onClick=""
             android:text="@string/button_forgot" />
 
         <Button

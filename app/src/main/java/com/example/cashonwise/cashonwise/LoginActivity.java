@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button signUpButton;
     private Button loginButton;
     private String AES = "AES", password = "COW12345";
-    private String decryptedPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextID = (EditText)findViewById(R.id.editTextID);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        chkBoxRememberMe = (CheckBox)findViewById(R.id.checkBoxRememberMe);
+        signUpButton = (Button)findViewById(R.id.signUpButton);
+        loginButton = (Button)findViewById(R.id.loginButton);
 
     }
 
@@ -45,12 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         if(editTextID.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill In Your Account Detail", Toast.LENGTH_SHORT).show();
         }else {
-            // Get ID and Password from DB
-
-            // decrypt password
-
             // check existing ID and decrypt password
             if(editTextID.getText().toString().equals("test") && editTextPassword.getText().toString().equals("test")){
+
                 // Success and proceed
                 Intent goToMenuNavi = new Intent(this, MenuActivity.class);
                 startActivity(goToMenuNavi);
