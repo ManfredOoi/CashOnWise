@@ -145,7 +145,8 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent intent = new Intent(this, ViewAccountActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_top_up) {
 
         } else if (id == R.id.nav_transaction_history) {
