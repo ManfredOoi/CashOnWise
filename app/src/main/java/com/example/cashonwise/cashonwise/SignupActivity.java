@@ -107,7 +107,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             //decryptedPassword = decrypt(encryptedPassword, password);
                             //decryptedPin = decrypt(encryptedPin, password);
 
-                            //Toast.makeText(getApplicationContext(), "Password: " + decryptedPassword + " Pin: " + decryptedPin, Toast.LENGTH_LONG).show();
                             Account account = new Account();
                             account.setId(incrementAccountID);
                             account.setName(editTextName.getText().toString());
@@ -120,9 +119,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             successfulSignUp();
 
                             try {
-
                                 makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -195,7 +192,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 accountID = accountID.replaceAll("C", "");
                 numberM = Integer.parseInt(accountID) + 1;
                 incrementAccountID = 'C' + Integer.toString(numberM);
-                if(numberM > 10000){
+                if(numberM > 9999){
                     incrementAccountID = "";
                 }
             }else if(numChar == 2){

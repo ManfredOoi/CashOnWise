@@ -28,19 +28,20 @@ public class SuccessfulActivity extends AppCompatActivity {
         circleProgressBar = (CircleProgressBar)findViewById(R.id.circleProgressBar);
         circleProgressBar.setColorSchemeColors(android.R.color.holo_blue_bright);
 
-        //autoTransactionID();
+
 
         Intent fromPaymentActivity = getIntent();
         amountPaid = fromPaymentActivity.getDoubleExtra("AMOUNTPAID", 0.00);
         date = fromPaymentActivity.getStringExtra("DATE").toString();
         location = fromPaymentActivity.getStringExtra("LOCATION").toString();
+        autoTransactionID(date);
         // get account balance
 
         // deduct the e-balance
 
         // save the update balance
 
-        //saveTransactionRecord(newTransactionID, newTransactionID, location, date, amountPaid);
+        saveTransactionRecord(newTransactionID, newTransactionID, location, date, amountPaid);
 
         circleProgressBar.setVisibility(View.VISIBLE);
         CountDownTimer countDownTimer = new CountDownTimer(7000, 500) {
@@ -61,8 +62,15 @@ public class SuccessfulActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void autoTransactionID(){
+    public void autoTransactionID(String date){
         //check if the database has record, else New ID
+        String dateFromDB = "";
+        if(!date.equals(dateFromDB)){
+
+        }else{
+            newTransactionID = date + "T000001";
+        }
+
         if(transactionID != null){
             numChar = 0;
             for(int i = 0 ; i < transactionID.length(); i++){
