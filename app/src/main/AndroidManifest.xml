@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
@@ -24,7 +23,6 @@
         <activity
             android:name=".PaymentActivity"
             android:label="@string/title_activity_payment"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -38,8 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".MyActivity" />
-        <activity android:name=".SuccessfulActivity"></activity>
+        <activity android:name=".MyActivity"></activity>
     </application>
 
 </manifest>

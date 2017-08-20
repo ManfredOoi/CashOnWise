@@ -71,4 +71,22 @@
         <item>Sarawak</item>
         <item>Pahang</item>
     </string-array>
+
+    <!-- Transaction History Activity -->
+    <string-array name="TransactionType">
+        <item>Payment Transaction</item>
+        <item>Top Up Transaction</item>
+    </string-array>
+
+    <!-- Top Up Activity -->
+    <string-array name="PaymentMethod">
+        <item>Inter-Bank Transfer</item>
+        <item>Credit/Debit Card Payment</item>
+    </string-array>
+
+    <string name="creditCardNum">Credit Card Number</string>
+    <string name="topUpAmount">Top Up Amount</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
