@@ -88,9 +88,11 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             // Handle the camera action
         } else if (id == R.id.nav_top_up) {
-
+            Intent intent = new Intent(this, TopUpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_transaction_history) {
-
+            Intent intent = new Intent(this, TransactionHistoryActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
