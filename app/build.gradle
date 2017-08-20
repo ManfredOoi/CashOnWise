@@ -34,6 +34,5 @@ dependencies {
     compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
     testCompile 'junit:junit:4.12'
-
-    compile files('C:/Users/Manfred Ooi/AndroidStudioProjects/CashOnWise/.idea/libraries/volley.jar')
+    compile files('build/volley.jar')
 }

@@ -45,7 +45,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
     private ProgressDialog pDialog;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
     RequestQueue queue;
-    TextView textViewName, textViewIC, textViewContact, textViewAddress, textViewEmail;
+
     Spinner spinnerState;
     String homeAddress;
     CheckBox checkBoxAddress;
