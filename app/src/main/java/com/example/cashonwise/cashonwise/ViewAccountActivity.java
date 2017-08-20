@@ -25,7 +25,6 @@ import java.util.List;
 public class ViewAccountActivity extends AppCompatActivity {
 
     public static final String TAG = "com.example.cashonwise.cashonwise";
-    ListView listViewCourse;
 
     List<Account> caList;
     private ProgressDialog pDialog;
@@ -138,10 +137,6 @@ public class ViewAccountActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
-    }
-
-    private void loadCourse() {
-
     }
 
     @Override
