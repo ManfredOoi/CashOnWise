@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextID = (EditText)findViewById(R.id.editTextID);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
-        chkBoxRememberMe = (CheckBox)findViewById(R.id.checkBoxRememberMe);
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
 

@@ -104,7 +104,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             successfulSignUp();
 
                             Account account = new Account();
-                            account.setId(accountID);
+                            account.setId(incrementAccountID);
                             account.setName(editTextName.getText().toString());
                             account.setIcnum(editTextIC.getText().toString());
                             account.setContactnum(editTextContact.getText().toString());
