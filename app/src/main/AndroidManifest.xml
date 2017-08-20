@@ -20,7 +20,6 @@
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".PaymentActivity"
             android:label="@string/title_activity_payment"
@@ -29,7 +28,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
@@ -38,26 +36,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity android:name=".MyActivity" />
-
-        <activity
-            android:name=".TransactionHistoryActivity"
-            android:label="@string/title_activity_transactionHistory"
-            android:theme="@style/AppTheme.AppBarOverlay">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
-        </activity>
-
-        <activity
-            android:name=".TopUpActivity"
-            android:label="@string/title_activity_topUp"
-            android:theme="@style/AppTheme.AppBarOverlay">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
-            </activity>
+        <activity android:name=".TransactionHistoryActivity" />
+        <activity android:name=".TopUpActivity"></activity>
     </application>
 
 </manifest>
