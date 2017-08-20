@@ -77,4 +77,12 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
 
+
+    <string name="name">Name</string>
+    <string name="icnum">IC No</string>
+    <string name="contactnum">Contact</string>
+    <string name="address">Address</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="pin">Pin</string>
 </resources>
