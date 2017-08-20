@@ -13,7 +13,7 @@ import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar;
 import java.util.Random;
 
 public class SuccessfulActivity extends AppCompatActivity {
-    CircleProgressBar circleProgressBar;
+    private CircleProgressBar circleProgressBar;
     int progressValue = 0, numChar, numberT;
     Random increment = new Random();
     String transactionID = "T100000";
