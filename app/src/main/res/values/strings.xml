@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_profile">profile</string>
-    <string name="menu_balance">My Balance</string>
+    <string name="menu_balance">Check My Balance</string>
     <string name="menu_topup">Top Up</string>
     <string name="menu_payment">Cow Pay</string>
     <string name="menu_history">Transaction History</string>

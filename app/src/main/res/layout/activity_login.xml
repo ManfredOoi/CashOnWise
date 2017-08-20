@@ -83,14 +83,5 @@
             android:layout_margin="2dp"
             android:text="@string/tv_signup" />
 
-        <CheckBox
-            android:id="@+id/checkBoxRememberMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="chkBoxRememberMe"
-            android:layout_margin="3dp"
-            android:text="@string/chk_remember_me" />
-
     </LinearLayout>
 </ScrollView>

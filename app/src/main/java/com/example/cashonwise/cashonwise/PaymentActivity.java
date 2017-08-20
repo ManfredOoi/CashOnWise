@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.app.Activity;
 import android.widget.Button;
@@ -18,12 +19,17 @@ import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class PaymentActivity extends AppCompatActivity {
+import java.security.MessageDigest;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
+public class PaymentActivity extends AppCompatActivity {
+    private String AES = "AES", password = "COW12345";
     private Button button_scan, button_proceed;
     private EditText editTextPin_payment, editTextAmountToPay;
     private double Money;
-    private String date, place;
+    private String date, place, decryptedPin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +92,12 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void onClickProceedPayment(View view){
-        if(editTextPin_payment.getText().toString().equals("1234")){
+        //get Pin from DB
+        decryptedPin = "";
+        // Decrypt Pin
+        //decryptedPin = decrypt(" ", password);;
+
+        if(editTextPin_payment.getText().toString().equals(decryptedPin)){
             Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
             successfulActivity.putExtra("LOCATION", place);
             successfulActivity.putExtra("DATE", date);
@@ -96,5 +107,25 @@ public class PaymentActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    private String decrypt(String encryptedPassword, String password)throws Exception{
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodedValue = Base64.decode(encryptedPassword, Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
+
+    private SecretKeySpec generateKey(String password) throws Exception{
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
     }
 }

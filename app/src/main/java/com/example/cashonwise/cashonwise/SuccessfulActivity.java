@@ -34,7 +34,13 @@ public class SuccessfulActivity extends AppCompatActivity {
         amountPaid = Double.parseDouble(fromPaymentActivity.getStringExtra("AMOUNTPAID"));
         date = fromPaymentActivity.getStringExtra("DATE");
         location = fromPaymentActivity.getStringExtra("LOCATION");
-        saveTransactionRecord(newTransactionID, location, date, amountPaid);
+        // get account balance
+
+        // deduct the e-balance
+
+        // save the update balance
+
+        saveTransactionRecord(newTransactionID, newTransactionID, location, date, amountPaid);
 
         circleProgressBar.setVisibility(View.VISIBLE);
         CountDownTimer countDownTimer = new CountDownTimer(7000, 500) {
@@ -57,68 +63,72 @@ public class SuccessfulActivity extends AppCompatActivity {
 
     public void autoTransactionID(){
         //check if the database has record, else New ID
-            //check T000001, take out T00000, remain 1
-        numChar = 0;
-        for(int i = 0 ; i < transactionID.length(); i++){
-            checkChar = transactionID.charAt(i);
-            if(Character.isLetter(checkChar) || checkChar == '0'){
-                numChar++;
-            }else{
-                break;
+        if(transactionID != null){
+            numChar = 0;
+            for(int i = 0 ; i < transactionID.length(); i++){
+                checkChar = transactionID.charAt(i);
+                if(Character.isLetter(checkChar) || checkChar == '0'){
+                    numChar++;
+                }else{
+                    break;
+                }
             }
+
+            if(numChar == 1){
+                transactionID = transactionID.replaceAll("T", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = 'T' + Integer.toString(numberT);
+                if(numberT == 1000000){
+                    newTransactionID = "";
+                }
+            }else if(numChar == 2){
+                transactionID = transactionID.replaceAll("T0", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = "T0" + Integer.toString(numberT);
+                if(numberT == 100000){
+                    newTransactionID = newTransactionID.replaceAll("T0", "");
+                    newTransactionID = "T" + newTransactionID;
+                }
+            }else if(numChar == 3){
+                transactionID = transactionID.replaceAll("T00", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = "T00" + Integer.toString(numberT);
+                if(numberT == 10000){
+                    newTransactionID = newTransactionID.replaceAll("T00", "");
+                    newTransactionID = "T0" + newTransactionID;
+                }
+            }else if(numChar == 4){
+                transactionID = transactionID.replaceAll("T000", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = "T000" + Integer.toString(numberT);
+                if(numberT == 1000){
+                    newTransactionID = newTransactionID.replaceAll("T000", "");
+                    newTransactionID = "T00" + newTransactionID;
+                }
+            }else if(numChar == 5){
+                transactionID = transactionID.replaceAll("T0000", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = "T0000" + Integer.toString(numberT);
+                if(numberT == 100){
+                    newTransactionID = newTransactionID.replaceAll("T0000", "");
+                    newTransactionID = "T000" + newTransactionID;
+                }
+            }else if(numChar == 6){
+                transactionID = transactionID.replaceAll("T00000", "");
+                numberT = Integer.parseInt(transactionID) + 1;
+                newTransactionID = "T00000" + Integer.toString(numberT);
+                if(numberT == 10){
+                    newTransactionID = newTransactionID.replaceAll("T00000", "");
+                    newTransactionID = "T0000" + newTransactionID;
+                }
+            } // end of process generate
+        }else{
+            newTransactionID = "T000001";
         }
 
-        if(numChar == 1){
-            transactionID = transactionID.replaceAll("T", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = 'T' + Integer.toString(numberT);
-            if(numberT == 1000000){
-                newTransactionID = "";
-            }
-        }else if(numChar == 2){
-            transactionID = transactionID.replaceAll("T0", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = "T0" + Integer.toString(numberT);
-            if(numberT == 100000){
-                newTransactionID = newTransactionID.replaceAll("T0", "");
-                newTransactionID = "T" + newTransactionID;
-            }
-        }else if(numChar == 3){
-            transactionID = transactionID.replaceAll("T00", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = "T00" + Integer.toString(numberT);
-            if(numberT == 10000){
-                newTransactionID = newTransactionID.replaceAll("T00", "");
-                newTransactionID = "T0" + newTransactionID;
-            }
-        }else if(numChar == 4){
-            transactionID = transactionID.replaceAll("T000", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = "T000" + Integer.toString(numberT);
-            if(numberT == 1000){
-                newTransactionID = newTransactionID.replaceAll("T000", "");
-                newTransactionID = "T00" + newTransactionID;
-            }
-        }else if(numChar == 5){
-            transactionID = transactionID.replaceAll("T0000", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = "T0000" + Integer.toString(numberT);
-            if(numberT == 100){
-                newTransactionID = newTransactionID.replaceAll("T0000", "");
-                newTransactionID = "T000" + newTransactionID;
-            }
-        }else if(numChar == 6){
-            transactionID = transactionID.replaceAll("T00000", "");
-            numberT = Integer.parseInt(transactionID) + 1;
-            newTransactionID = "T00000" + Integer.toString(numberT);
-            if(numberT == 10){
-                newTransactionID = newTransactionID.replaceAll("T00000", "");
-                newTransactionID = "T0000" + newTransactionID;
-            }
-        } // end of process generate
     } // end of auto-generate
 
-    public void saveTransactionRecord(String newID, String location, String date, double amountPaid){
+    public void saveTransactionRecord(String ID, String newID, String location, String date, double amountPaid){
 
     }
 }

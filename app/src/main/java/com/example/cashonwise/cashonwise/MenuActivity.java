@@ -20,29 +20,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private PieChart pieChart;
-    private static String TAG = "MenuActivity";
 
-    private float[] moneyVolume;
-    private String[] labelVolume = {"Occupied", "Un-occupied"};
-    private String currentBalance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,54 +42,7 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        pieChart = (PieChart)findViewById(R.id.pieChartMoneyVolume);
-        pieChart.setDescription("Green is Your Current: R" + currentBalance);
-        pieChart.setDescriptionTextSize(25f);
-        pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Volume Display");
-        pieChart.setCenterTextSize(20);
-        pieChart.setDrawEntryLabels(true);
-
-        addDataSet();
     }
-
-    public void addDataSet(){
-        ArrayList<PieEntry> volumeEntrys = new ArrayList<>();
-        ArrayList<String> labelEntrys = new ArrayList<>();
-        moneyVolume = new float[]{60.0f, 40.0f};
-        for(int i = 0; i < moneyVolume.length; i++){
-            volumeEntrys.add(new PieEntry(moneyVolume[i], i));
-        }
-
-        for(int i = 0; i < labelVolume.length; i++){
-            labelEntrys.add(labelVolume[i]);
-        }
-
-        // create the data set
-        PieDataSet pieDataSet = new PieDataSet(volumeEntrys, "Your Overall Balance.");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
-
-        //Add Colour to data set
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GREEN);
-        colors.add(Color.LTGRAY);
-        pieDataSet.setColors(colors);
-
-        //add legend to chart
-        Legend legend = pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-
-        //Create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
-    }
-
-    // Pre-coded ---------------------- ----------------------------- ------------------------------
 
     @Override
     public void onBackPressed() {
@@ -149,9 +84,11 @@ public class MenuActivity extends AppCompatActivity
             // Handle the camera action
             Intent intent = new Intent(this, ViewAccountActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_top_up) {
             Intent intent = new Intent(this, TopUpActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_balance) {
+            Intent intent = new Intent(this, BalanceActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_transaction_history) {
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
@@ -159,7 +96,6 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_change_pin) {
 
         } else if (id == R.id.nav_logout) {
