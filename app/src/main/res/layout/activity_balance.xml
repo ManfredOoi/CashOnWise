@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cashonwise.cashonwise.BalanceActivity">
+
+    <TextView
+        android:id="@+id/textViewGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#08f904"
+        android:shadowColor="#b6b6b6"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="3"
+        android:textSize="15sp"
+        android:text="Green Color: Your Current Balance Occupied Space." />
+    <TextView
+        android:id="@+id/textViewGray"  
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#615b5b"
+        android:shadowColor="#b6b6b6"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="3"
+        android:textSize="15sp"
+        android:text="Gray Color: Top Up Space Available" />
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pieChartMoneyVolume">
+    </com.github.mikephil.charting.charts.PieChart>
+</LinearLayout>

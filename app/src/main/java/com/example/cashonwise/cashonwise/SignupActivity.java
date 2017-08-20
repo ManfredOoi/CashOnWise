@@ -39,7 +39,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     String encryptedPassword, encryptedPin, decryptedPassword, decryptedPin;
 
     int numChar, numberM;
-    String accountID = "C0001";
+    String accountID;
     String incrementAccountID = "";
     char checkChar;
 
@@ -88,23 +88,21 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())){
                     if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
                         try{
+                            autoIDGenerate();
                             editTextName.getText().toString();
                             editTextIC.getText().toString();
                             editTextContact.getText().toString();
                             editTextEmail.getText().toString();
-                            homeAddress = editTextAddress.getText().toString() + ", " + editTextPin.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
+                            homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
                             encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
                             encryptedPin = encrypt(editTextPin.getText().toString(), password);
 
-                            decryptedPassword = decrypt(encryptedPassword, password);
-                            decryptedPin = decrypt(encryptedPin, password);
+                            //decryptedPassword = decrypt(encryptedPassword, password);
+                            //decryptedPin = decrypt(encryptedPin, password);
 
-                            autoIDGenerate();
                             //Toast.makeText(getApplicationContext(), "Password: " + decryptedPassword + " Pin: " + decryptedPin, Toast.LENGTH_LONG).show();
-                            successfulSignUp();
-
                             Account account = new Account();
-                            account.setId(accountID);
+                            account.setId(incrementAccountID);
                             account.setName(editTextName.getText().toString());
                             account.setIcnum(editTextIC.getText().toString());
                             account.setContactnum(editTextContact.getText().toString());
@@ -112,6 +110,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             account.setEmail(editTextEmail.getText().toString());
                             account.setPassword(encryptedPassword);
                             account.setPin(encryptedPin);
+                            successfulSignUp();
 
                             try {
 
@@ -173,45 +172,54 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void autoIDGenerate(){
-        numChar = 0;
-        for(int i = 0 ; i < accountID.length(); i++){
-            checkChar = accountID.charAt(i);
-            if(Character.isLetter(checkChar) || checkChar == '0'){
-                numChar++;
-            }else{
-                break;
+        accountID = "";
+        if(accountID != null){
+            numChar = 0;
+            for(int i = 0 ; i < accountID.length(); i++){
+                checkChar = accountID.charAt(i);
+                if(Character.isLetter(checkChar) || checkChar == '0'){
+                    numChar++;
+                }else{
+                    break;
+                }
             }
+
+            if(numChar == 1){
+                accountID = accountID.replaceAll("C", "");
+                numberM = Integer.parseInt(accountID) + 1;
+                incrementAccountID = 'C' + Integer.toString(numberM);
+                if(numberM > 10000){
+                    incrementAccountID = "";
+                }
+            }else if(numChar == 2){
+                accountID = accountID.replaceAll("C0", "");
+                numberM = Integer.parseInt(accountID) + 1;
+                incrementAccountID = "C0" + Integer.toString(numberM);
+                if(numberM == 1000){
+                    incrementAccountID = incrementAccountID.replaceAll("C0", "");
+                    incrementAccountID = "C" + incrementAccountID;
+                }
+            }else if(numChar == 3){
+                accountID = accountID.replaceAll("C00", "");
+                numberM = Integer.parseInt(accountID) + 1;
+                incrementAccountID = "C00" + Integer.toString(numberM);
+                if(numberM == 100){
+                    incrementAccountID = incrementAccountID.replaceAll("C00", "");
+                    incrementAccountID = "C0" + incrementAccountID;
+                }
+            }else if(numChar == 4){
+                accountID = accountID.replaceAll("C000", "");
+                numberM = Integer.parseInt(accountID) + 1;
+                incrementAccountID = "C000" + Integer.toString(numberM);
+                if(numberM == 10){
+                    incrementAccountID = incrementAccountID.replaceAll("C000", "");
+                    incrementAccountID = "C00" + incrementAccountID;
+                }
+            }
+        }else{
+            incrementAccountID = "C0001";
         }
 
-        if(numChar == 1){
-            accountID = accountID.replaceAll("C", "");
-            numberM = Integer.parseInt(accountID) + 1;
-            incrementAccountID = 'C' + Integer.toString(numberM);
-        }else if(numChar == 2){
-            accountID = accountID.replaceAll("C0", "");
-            numberM = Integer.parseInt(accountID) + 1;
-            incrementAccountID = "C0" + Integer.toString(numberM);
-            if(numberM == 1000){
-                incrementAccountID = incrementAccountID.replaceAll("C0", "");
-                incrementAccountID = "C" + incrementAccountID;
-            }
-        }else if(numChar == 3){
-            accountID = accountID.replaceAll("C00", "");
-            numberM = Integer.parseInt(accountID) + 1;
-            incrementAccountID = "C00" + Integer.toString(numberM);
-            if(numberM == 100){
-                incrementAccountID = incrementAccountID.replaceAll("C00", "");
-                incrementAccountID = "C0" + incrementAccountID;
-            }
-        }else if(numChar == 4){
-            accountID = accountID.replaceAll("C000", "");
-            numberM = Integer.parseInt(accountID) + 1;
-            incrementAccountID = "C000" + Integer.toString(numberM);
-            if(numberM == 10){
-                incrementAccountID = incrementAccountID.replaceAll("C000", "");
-                incrementAccountID = "C00" + incrementAccountID;
-            }
-        }
     }
     public void makeServiceCall(Context context, String url, final Account account) {
         //mPostCommentResponse.requestStarted();

@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_profile" />
         <item
+            android:id="@+id/nav_balance"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
+            android:title="@string/menu_balance" />
+        <item
             android:id="@+id/nav_top_up"
             android:icon="@drawable/ic_attach_money_black_24dp"
             android:title="@string/menu_topup" />

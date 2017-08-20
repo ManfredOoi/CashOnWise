@@ -2,7 +2,6 @@ package com.example.cashonwise.cashonwise;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -22,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button chkBoxRememberMe;
     private Button signUpButton;
     private Button loginButton;
-    private Button forgotButton;
     private String AES = "AES", password = "COW12345";
 
     @Override
@@ -39,41 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextID = (EditText)findViewById(R.id.editTextID);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
-        chkBoxRememberMe = (CheckBox)findViewById(R.id.checkBoxRememberMe);
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
-        forgotButton = (Button)findViewById(R.id.buttonForgot);
-
-        forgotButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
-                EditText editTextId = (EditText)mView.findViewById(R.id.editTextLoginId);
-                Button buttonConfirm = (Button)mView.findViewById(R.id.buttonConfirm);
-                Button buttonCancel = (Button)mView.findViewById(R.id.buttonCancel);
-
-                buttonConfirm.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        //Write function to send password to user
-                    }
-                });
-
-                buttonCancel.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-                builder.setView(mView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-
 
     }
 
