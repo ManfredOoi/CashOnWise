@@ -2,6 +2,7 @@ package com.example.cashonwise.cashonwise;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button chkBoxRememberMe;
     private Button signUpButton;
     private Button loginButton;
+    private Button forgotButton;
     private String AES = "AES", password = "COW12345";
 
     @Override
@@ -39,7 +41,27 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
+        forgotButton = (Button)findViewById(R.id.buttonForgot);
+    }
 
+    public void ForgotPassword(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
+        EditText editTextLoginId = (EditText)mView.findViewById(R.id.editTextLoginId);
+        Button buttonConfirm = (Button)mView.findViewById(R.id.buttonConfirm);
+
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Code to verify id and retrieve email
+                Toast.makeText(LoginActivity.this,
+                        "Password successful send to your email.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setView(mView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void verifyAccount(View view){

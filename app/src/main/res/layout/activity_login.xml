@@ -66,6 +66,7 @@
             style="@style/button_style"
             android:layout_width="321dp"
             android:layout_gravity="center"
+            android:onClick="ForgotPassword"
             android:text="@string/button_forgot" />
 
         <Button
