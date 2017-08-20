@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:background="#FFFFFF"
     android:layout_height="match_parent"
-    android:paddingBottom="100dp"
+    android:paddingBottom="40dp"
     android:paddingLeft="48dp"
     android:paddingRight="48dp"
-    android:paddingTop="100dp"
+    android:paddingTop="50dp"
     tools:context="com.example.cashonwise.cashonwise.LoginActivity">
 
     <LinearLayout
@@ -32,28 +32,28 @@
             android:text="Be Wise While Spend" />
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/editTextID"
             style="@style/editText_style"
-            android:hint="@string/hint_personal_email"
+            android:hint="@string/hint_verify_ID"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextPassword"
             style="@style/editText_style"
-            android:hint="@string/hint_personal_password"
+            android:hint="@string/hint_verify_password"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
             style="@style/button_style"
             android:onClick="verifyAccount"
-            android:text="Login" />
+            android:text="@string/button_login" />
 
         <Button
             android:id="@+id/signUpButton"
             style="@style/button_style"
             android:onClick="toSignUp"
-            android:text="Sign Up" />
+            android:text="@string/button_signup" />
 
         <TextView
             android:id="@+id/textView2"

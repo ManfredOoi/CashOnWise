@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.*;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText editTextEmail;
+    private EditText editTextID;
     private EditText password;
     private Button signUpButton;
     private Button loginButton;
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryGreeny));
         }
 
-        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
+        editTextID = (EditText)findViewById(R.id.editTextID);
         password = (EditText)findViewById(R.id.editTextPassword);
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
@@ -35,12 +35,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void verifyAccount(View view){
-        // check existing ID
-        // Check the password
+        if(editTextID.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "Please Fill In Your Account Detail", Toast.LENGTH_SHORT).show();
+        }else {
+            // check existing ID
+            if(editTextID.getText().toString().equals("test") && password.getText().toString().equals("test")){
 
-        // Success and proceed
-        Intent goToMenuNavi = new Intent(this, MenuActivity.class);
-        startActivity(goToMenuNavi);
+                // Success and proceed
+                Intent goToMenuNavi = new Intent(this, MenuActivity.class);
+                startActivity(goToMenuNavi);
+            }else{
+                Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void toSignUp(View view){

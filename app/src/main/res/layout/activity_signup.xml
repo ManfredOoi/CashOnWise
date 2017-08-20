@@ -3,134 +3,200 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    app:layout_collapseParallaxMultiplier="1.0"
     tools:context="com.example.cashonwise.cashonwise.SignupActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblPersonal"
+                android:layout_width="match_parent"
+                android:textColor="#00ff73"
+                android:layout_height="wrap_content"
+                android:text="@string/label_personal" />
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name">
+                >
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_personal_name"
+                    android:ems="10"
+                    />
+
             </android.support.design.widget.TextInputLayout>
 
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
-            android:id="@+id/editTextName"
-            style="@style/editText_style"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            android:hint="@string/hint_personal_name"
-            android:inputType="textPersonName"
-            />
+                android:id="@+id/editTextIC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="12"
+                android:hint="@string/hint_personal_ic"
+                android:inputType="number"
+                />
+            </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextIC"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_ic"
-            android:inputType="textPersonName"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="11"
+                    android:hint="@string/hint_personal_contactno"
+                    android:inputType="number"
+                    />
 
-        <EditText
-            android:id="@+id/editTextContact"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_contactno"
-            android:inputType="textPersonName"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextAddress"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_address"
-            android:inputType="textMultiLine"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00ff73"
+                android:text="@string/label_address" />
 
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_email"
-            android:inputType="textPersonName"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_personal_address"
+                    android:inputType="textPersonName"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_password"
-            android:inputType="textPassword"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextPosCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="5"
+                    android:hint="@string/hint_personal_pos"
+                    android:inputType="number"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextRePassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_repassword"
-            android:inputType="textPassword"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerState"
+                app:ms_arrowColor="#00ff90"
+                app:ms_arrowSize="16dp"
+                app:ms_floatingLabelColor="#ff0004"
+                app:ms_floatingLabelText="Please Select Your State"
+                app:ms_hint="Please Choose"
+                app:ms_hintColor="#969696"
+                app:ms_multiline="false">
 
-        <EditText
-            android:id="@+id/editTextPin"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_pin"
-            android:inputType="numberPassword"
-            android:maxLength="4"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            </fr.ganfra.materialspinner.MaterialSpinner>
 
-        <EditText
-            android:id="@+id/editTextRePin"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            style="@style/editText_style"
-            android:hint="@string/hint_personal_repin"
-            android:inputType="numberPassword"
-            android:maxLength="4"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            />
+            <TextView
+                android:id="@+id/lblEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00ff73"
+                android:text="@string/label_email" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_personal_email"
+                    android:inputType="textEmailAddress"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_personal_password"
+                    android:inputType="textPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextRePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_personal_repassword"
+                    android:inputType="textPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextPin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="4"
+                    android:hint="@string/hint_personal_pin"
+                    android:inputType="numberPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextRePin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="4"
+                    android:hint="@string/hint_personal_repin"
+                    android:inputType="numberPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_signup"
                 style="@style/button_style"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:onClick="successfulSignUp"
+                android:onClick="onClickCreate"
+                android:layout_marginBottom="15dp"
                 android:text="@string/button_createnewaccount" />
         </LinearLayout>
     </ScrollView>
