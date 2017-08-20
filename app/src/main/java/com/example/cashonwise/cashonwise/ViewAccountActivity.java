@@ -94,7 +94,7 @@ public class ViewAccountActivity extends AppCompatActivity {
 
                                 String id = courseResponse.getString("id");
 
-                                if(id.matches("COW00001")) {
+                                if(id.matches("1")) {
                                     String name = courseResponse.getString("name");
                                     String icnum = courseResponse.getString("icnum");
                                     String contactnum = courseResponse.getString("contactnum");
@@ -157,7 +157,7 @@ public class ViewAccountActivity extends AppCompatActivity {
     public void SaveChange(View v){
         Account account = new Account();
 
-        account.setId("COW00001");
+        account.setId("1");
         account.setName(editTextName.getText().toString());
         account.setIcnum(editTextIC.getText().toString());
         account.setContactnum(editTextContact.getText().toString());
@@ -165,9 +165,7 @@ public class ViewAccountActivity extends AppCompatActivity {
         account.setEmail(editTextEmail.getText().toString());
 
         try {
-
-            makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
-            Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_LONG).show();
+            makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/save_change.php", account);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -214,6 +212,7 @@ public class ViewAccountActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
+                    params.put("id", account.getId());
                     params.put("name", account.getName());
                     params.put("icnum", account.getIcnum());
                     params.put("contactnum", account.getContactnum());
