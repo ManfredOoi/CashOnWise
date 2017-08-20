@@ -133,11 +133,12 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/buttonSaveDetail"
+                    android:id="@+id/buttonSaveChange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Save" />
+                    android:onClick="SaveChange"
+                    android:text=" Save Change" />
 
                 <Button
                     android:id="@+id/buttonCancel"
@@ -155,15 +156,7 @@
             android:paddingTop="80px"
             android:paddingBottom="80px">
 
-            <TextView
-                android:id="@+id/textViewCurrentBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="32dp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:text="TextView" />
+
         </TableRow>
     </TableLayout>
 </RelativeLayout>
