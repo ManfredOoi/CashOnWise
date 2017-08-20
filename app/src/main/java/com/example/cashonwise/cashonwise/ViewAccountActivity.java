@@ -27,12 +27,9 @@ import java.util.List;
 public class ViewAccountActivity extends AppCompatActivity {
 
     public static final String TAG = "com.example.cashonwise.cashonwise";
-    ListView listViewCourse;
 
-    List<Account> caList;
     private ProgressDialog pDialog;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
-    Account account = new Account();
     RequestQueue queue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +37,10 @@ public class ViewAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_account);
 
         pDialog = new ProgressDialog(this);
-        caList = new ArrayList<>();
 
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
-        }
+       }
 
         downloadCourse(getApplicationContext(), GET_URL);
     }
@@ -144,10 +140,6 @@ public class ViewAccountActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
-    }
-
-    private void loadCourse() {
-
     }
 
     @Override
