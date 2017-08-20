@@ -59,6 +59,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         spinnerState.setAdapter(adapter);
         spinnerState.setOnItemSelectedListener(SignupActivity.this);
 
+        pDialog = new ProgressDialog(this);
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextIC = (EditText)findViewById(R.id.editTextIC);
         editTextContact = (EditText)findViewById(R.id.editTextContact);
@@ -69,6 +70,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         editTextRePassword = (EditText)findViewById(R.id.editTextRePassword);
         editTextPin = (EditText)findViewById(R.id.editTextPin);
         editTextRepin = (EditText)findViewById(R.id.editTextRePin);
+        findLastID(getApplicationContext(), GET_URL);
 
     }
 
@@ -95,6 +97,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())){
                     if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
                         try{
+
+                            //Toast.makeText(getApplicationContext(), "Error: " + LastID , Toast.LENGTH_LONG).show();
                             autoIDGenerate();
                             editTextName.getText().toString();
                             editTextIC.getText().toString();
@@ -117,13 +121,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             account.setPassword(encryptedPassword);
                             account.setPin(encryptedPin);
                             successfulSignUp();
-
                             try {
                                 makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
+
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
                         }
@@ -176,6 +180,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void autoIDGenerate(){
+
         accountID = LastID;
         if(accountID != null){
             numChar = 0;
@@ -243,12 +248,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             for (int i = 0; i < response.length(); i++) {
 
                                 JSONObject accountResponse = (JSONObject) response.get(i);
-
                                 LastID = accountResponse.getString("id");
 
-
-                                }
-
+                            }
 
                             if (pDialog.isShowing())
                                 pDialog.dismiss();
