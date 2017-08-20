@@ -1,5 +1,6 @@
 package com.example.cashonwise.cashonwise;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,6 +102,25 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             autoIDGenerate();
                             //Toast.makeText(getApplicationContext(), "Password: " + decryptedPassword + " Pin: " + decryptedPin, Toast.LENGTH_LONG).show();
                             successfulSignUp();
+
+                            Account account = new Account();
+                            account.setId(accountID);
+                            account.setName(editTextName.getText().toString());
+                            account.setIcnum(editTextIC.getText().toString());
+                            account.setContactnum(editTextContact.getText().toString());
+                            account.setAddress(homeAddress);
+                            account.setEmail(editTextEmail.getText().toString());
+                            account.setPassword(encryptedPassword);
+                            account.setPin(encryptedPin);
+
+                            try {
+
+                                makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
                         }
@@ -178,6 +211,66 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 incrementAccountID = incrementAccountID.replaceAll("C000", "");
                 incrementAccountID = "C00" + incrementAccountID;
             }
+        }
+    }
+    public void makeServiceCall(Context context, String url, final Account account) {
+        //mPostCommentResponse.requestStarted();
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //Send data
+        try {
+            StringRequest postRequest = new StringRequest(
+                    Request.Method.POST,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject = new JSONObject(response);
+                                int success = jsonObject.getInt("success");
+                                String message = jsonObject.getString("message");
+                                if (success==0) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Error. " + error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id", account.getId());
+                    params.put("name", account.getName());
+                    params.put("icnum", account.getIcnum());
+                    params.put("contactnum", account.getContactnum());
+                    params.put("address", account.getAddress());
+                    params.put("email", account.getEmail());
+                    params.put("password", account.getPassword());
+                    params.put("pin", account.getPin());
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }
+            };
+            queue.add(postRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
