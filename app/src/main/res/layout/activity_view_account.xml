@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="80px"
     android:paddingBottom="80px"
     android:paddingLeft="50px"
-    android:paddingRight="50px"
-    tools:context="com.example.cashonwise.cashonwise.TopUpActivity">
+    android:paddingRight="50px">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -17,8 +15,6 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
 
         </TableRow>
 

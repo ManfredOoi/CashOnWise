@@ -21,44 +21,34 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAccountActivity extends AppCompatActivity {
 
     public static final String TAG = "com.example.cashonwise.cashonwise";
+    ListView listViewCourse;
+
     List<Account> caList;
     private ProgressDialog pDialog;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
     Account account = new Account();
     RequestQueue queue;
-    TextView textViewName, textViewIC, textViewContact, textViewAddress, textViewEmail, textViewPassword, textViewPIN;
-    EditText editTextName,editTextIC,editTextContact,editTextAddress,editTextEmail;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
 
+        pDialog = new ProgressDialog(this);
+        caList = new ArrayList<>();
+
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
 
-
-        textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewIC = (TextView) findViewById(R.id.textViewIC);
-        textViewContact = (TextView) findViewById(R.id.textViewContact);
-        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
-        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
-        //textViewPassword = (TextView) findViewById(R.id.textViewPassword);
-        //textViewPIN = (TextView) findViewById(R.id.textViewPIN);
-
-        editTextName = (EditText) findViewById(R.id.editTextName) ;
-        editTextIC = (EditText) findViewById(R.id.editTextIC) ;
-        editTextContact = (EditText) findViewById(R.id.editTextContact) ;
-        editTextAddress = (EditText) findViewById(R.id.editTextAddress) ;
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail) ;
         downloadCourse(getApplicationContext(), GET_URL);
     }
+
     private boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,7 +71,7 @@ public class ViewAccountActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            caList.clear();
+                            //caList.clear();
                             for (int i = 0; i < response.length(); i++) {
 
                                 JSONObject courseResponse = (JSONObject) response.get(i);
@@ -98,18 +88,36 @@ public class ViewAccountActivity extends AppCompatActivity {
                                     String pin = courseResponse.getString("pin");
 
                                     Account account = new Account(name, icnum, contactnum, address, email, password, pin);
+                                    //caList.add(account);
+                                    //loadCourse();
+                                    TextView textViewName, textViewIC, textViewContact, textViewAddress, textViewEmail, textViewPassword, textViewPIN;
+                                    EditText editTextName,editTextIC,editTextContact,editTextAddress,editTextEmail;
+                                    textViewName = (TextView) findViewById(R.id.textViewName);
+                                    textViewIC = (TextView) findViewById(R.id.textViewIC);
+                                    textViewContact = (TextView) findViewById(R.id.textViewContact);
+                                    textViewAddress = (TextView) findViewById(R.id.textViewAddress);
+                                    textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+                                    //textViewPassword = (TextView) findViewById(R.id.textViewPassword);
+                                    //textViewPIN = (TextView) findViewById(R.id.textViewPIN);
 
-                                    textViewName.setText(textViewName.getText() + ":");
-                                    textViewIC.setText(textViewIC.getText() + ":");
-                                    textViewContact.setText(textViewContact.getText() + ":");
-                                    textViewAddress.setText(textViewAddress.getText() + ":");
-                                    textViewEmail.setText(textViewEmail.getText() + ":");
+                                    editTextName = (EditText) findViewById(R.id.editTextName) ;
+                                    editTextIC = (EditText) findViewById(R.id.editTextIC) ;
+                                    editTextContact = (EditText) findViewById(R.id.editTextContact) ;
+                                    editTextAddress = (EditText) findViewById(R.id.editTextAddress) ;
+                                    editTextEmail = (EditText) findViewById(R.id.editTextEmail) ;
 
                                     editTextName.setText(account.getName());
                                     editTextIC.setText(account.getIcnum());
                                     editTextContact.setText(account.getContactnum());
                                     editTextAddress.setText(account.getAddress());
                                     editTextEmail.setText(account.getEmail());
+
+
+                                    textViewName.setText(textViewName.getText() + ":");
+                                    textViewIC.setText(textViewIC.getText() + ":");
+                                    textViewContact.setText(textViewContact.getText() + ":");
+                                    textViewAddress.setText(textViewAddress.getText() + ":");
+                                    textViewEmail.setText(textViewEmail.getText() + ":");
                                     //textViewPassword.setText(textViewPassword.getText() + ":");
                                     //textViewPIN.setText(textViewPIN.getText() + ":");
                                 }
@@ -136,6 +144,10 @@ public class ViewAccountActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
+    }
+
+    private void loadCourse() {
+
     }
 
     @Override
