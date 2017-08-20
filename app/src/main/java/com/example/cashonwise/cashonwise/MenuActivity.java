@@ -40,8 +40,9 @@ public class MenuActivity extends AppCompatActivity
     private PieChart pieChart;
     private static String TAG = "MenuActivity";
 
-    private float[] moneyVolume = {2500.2f, 7500.2f}; // problem
+    private float[] moneyVolume;
     private String[] labelVolume = {"Occupied", "Un-occupied"};
+    private String currentBalance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class MenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         pieChart = (PieChart)findViewById(R.id.pieChartMoneyVolume);
-        pieChart.setDescription("Green is Your Current Balance, Gray is For Top Up Space.");
+        pieChart.setDescription("Green is Your Current: R" + currentBalance);
         pieChart.setDescriptionTextSize(25f);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
@@ -75,7 +76,7 @@ public class MenuActivity extends AppCompatActivity
     public void addDataSet(){
         ArrayList<PieEntry> volumeEntrys = new ArrayList<>();
         ArrayList<String> labelEntrys = new ArrayList<>();
-
+        moneyVolume = new float[]{60.0f, 40.0f};
         for(int i = 0; i < moneyVolume.length; i++){
             volumeEntrys.add(new PieEntry(moneyVolume[i], i));
         }
@@ -145,8 +146,10 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            // Handle the camera action
             Intent intent = new Intent(this, ViewAccountActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_top_up) {
 
         } else if (id == R.id.nav_transaction_history) {
