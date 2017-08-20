@@ -36,7 +36,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".MyActivity" />
         <activity android:name=".TransactionHistoryActivity" />
         <activity android:name=".TopUpActivity"></activity>
     </application>
