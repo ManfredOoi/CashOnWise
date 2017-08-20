@@ -22,6 +22,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textSize="30sp"
+                android:shadowColor="#b6b6b6"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="3"
                 android:layout_marginBottom="5dp"
                 android:text="@string/tv_registartion_title"
                 android:textColor="#00ff73"
@@ -31,6 +35,10 @@
                 android:id="@+id/lblPersonal"
                 android:layout_width="match_parent"
                 android:textColor="#00ff73"
+                android:shadowColor="#b6b6b6"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="3"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:text="@string/label_personal" />
@@ -85,6 +93,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#00ff73"
+                android:shadowColor="#b6b6b6"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="3"
                 android:text="@string/label_address" />
 
             <android.support.design.widget.TextInputLayout
@@ -135,6 +147,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#00ff73"
+                android:shadowColor="#b6b6b6"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="3"
                 android:text="@string/label_email" />
 
             <android.support.design.widget.TextInputLayout

@@ -93,7 +93,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             editTextIC.getText().toString();
                             editTextContact.getText().toString();
                             editTextEmail.getText().toString();
-                            homeAddress = editTextAddress.getText().toString() + ", " + editTextPin.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
+                            homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
                             encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
                             encryptedPin = encrypt(editTextPin.getText().toString(), password);
 
@@ -101,8 +101,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             //decryptedPin = decrypt(encryptedPin, password);
 
                             //Toast.makeText(getApplicationContext(), "Password: " + decryptedPassword + " Pin: " + decryptedPin, Toast.LENGTH_LONG).show();
-                            successfulSignUp();
-
                             Account account = new Account();
                             account.setId(incrementAccountID);
                             account.setName(editTextName.getText().toString());
@@ -112,6 +110,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             account.setEmail(editTextEmail.getText().toString());
                             account.setPassword(encryptedPassword);
                             account.setPin(encryptedPin);
+                            successfulSignUp();
 
                             try {
 

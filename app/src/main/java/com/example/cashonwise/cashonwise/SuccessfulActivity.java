@@ -28,19 +28,19 @@ public class SuccessfulActivity extends AppCompatActivity {
         circleProgressBar = (CircleProgressBar)findViewById(R.id.circleProgressBar);
         circleProgressBar.setColorSchemeColors(android.R.color.holo_blue_bright);
 
-        autoTransactionID();
+        //autoTransactionID();
 
         Intent fromPaymentActivity = getIntent();
-        amountPaid = Double.parseDouble(fromPaymentActivity.getStringExtra("AMOUNTPAID"));
-        date = fromPaymentActivity.getStringExtra("DATE");
-        location = fromPaymentActivity.getStringExtra("LOCATION");
+        amountPaid = fromPaymentActivity.getDoubleExtra("AMOUNTPAID", 0.00);
+        date = fromPaymentActivity.getStringExtra("DATE").toString();
+        location = fromPaymentActivity.getStringExtra("LOCATION").toString();
         // get account balance
 
         // deduct the e-balance
 
         // save the update balance
 
-        saveTransactionRecord(newTransactionID, newTransactionID, location, date, amountPaid);
+        //saveTransactionRecord(newTransactionID, newTransactionID, location, date, amountPaid);
 
         circleProgressBar.setVisibility(View.VISIBLE);
         CountDownTimer countDownTimer = new CountDownTimer(7000, 500) {

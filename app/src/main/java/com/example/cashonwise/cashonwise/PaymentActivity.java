@@ -68,8 +68,10 @@ public class PaymentActivity extends AppCompatActivity {
                 }
                 else {
                     resultQR = result.getContents();
-                    date = resultQR.substring(0, 8);
-                    place = resultQR.substring(8, resultQR.length() - 6);
+                    date = resultQR.substring(0, 10);
+                    date = date.replace("/", "");
+                    place = resultQR.substring(10, resultQR.length() - 6);
+                    Toast.makeText(getApplicationContext(), date  + "_" + place,Toast.LENGTH_LONG).show();
                     //Toast.makeText(getApplicationContext(), "Your Purchase location: " + place + " on " + date, Toast.LENGTH_LONG).show();
                     Money = Double.parseDouble(resultQR.substring(resultQR.length() - 6, resultQR.length())) / 100;
                     if(Money > 9999.99){
@@ -97,7 +99,7 @@ public class PaymentActivity extends AppCompatActivity {
         // Decrypt Pin
         //decryptedPin = decrypt(" ", password);;
 
-        if(editTextPin_payment.getText().toString().equals(decryptedPin)){
+        if(editTextPin_payment.getText().toString().equals("1234")){
             Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
             successfulActivity.putExtra("LOCATION", place);
             successfulActivity.putExtra("DATE", date);
