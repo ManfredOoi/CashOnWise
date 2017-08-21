@@ -39,6 +39,7 @@ public class SuccessfulActivity extends AppCompatActivity {
     String userid, balance="0";
     private ProgressDialog pDialog;
     RequestQueue queue;
+
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
 
     private CircleProgressBar circleProgressBar;

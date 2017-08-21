@@ -109,7 +109,6 @@ public class PaymentActivity extends AppCompatActivity {
         if (!pDialog.isShowing())
             pDialog.setMessage("Loading...");
         pDialog.show();
-
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 url,
                 new Response.Listener<JSONArray>() {
