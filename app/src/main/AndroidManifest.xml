@@ -19,13 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".PaymentActivity"
             android:label="@string/title_activity_payment"
@@ -34,7 +32,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
@@ -43,12 +40,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
-        <activity android:name=".SuccessfulActivity" >
-
+        <activity android:name=".SuccessfulActivity" />
+        <activity android:name=".ViewAccountActivity"
+            android:label="Account Details"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MenuActivity" />
         </activity>
-
-        <activity android:name=".ViewAccountActivity" />
         <activity android:name=".TransactionHistoryActivity" />
         <activity android:name=".TopUpActivity" />
         <activity
