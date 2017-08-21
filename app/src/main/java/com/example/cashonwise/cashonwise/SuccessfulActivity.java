@@ -39,9 +39,7 @@ public class SuccessfulActivity extends AppCompatActivity {
     String userid, balance="0";
     private ProgressDialog pDialog;
     RequestQueue queue;
-
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
-
     private CircleProgressBar circleProgressBar;
     int progressValue = 0, numChar, numberT;
     Random increment = new Random();
@@ -49,7 +47,6 @@ public class SuccessfulActivity extends AppCompatActivity {
     String newTransactionID = "", dates, location, fullFormatDate;
     double amountPaid, accountAmount;
     char checkChar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

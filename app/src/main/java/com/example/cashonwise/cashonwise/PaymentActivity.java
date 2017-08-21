@@ -103,7 +103,6 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void retriveIDPass(Context context, String url) {
-        // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
 
         if (!pDialog.isShowing())
