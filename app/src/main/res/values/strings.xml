@@ -23,7 +23,7 @@
     <string name="button_scan">Click to Scan QR now</string>
     <string name="button_proceed">Proceed Payment</string>
     <string name="button_forgot">Forget My Password</string>
-    <string name="button_submit">Submit</string>
+    <string name="button_submit_change_pin">Submit</string>
 
     <string name="tv_step1">Step 1: Click To Scan The QR Code</string>
     <string name="tv_step2">Step 2: Confirm The Amount</string>

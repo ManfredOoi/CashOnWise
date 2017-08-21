@@ -170,43 +170,48 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         }else{
             if(isEmailValid(editTextEmail.getText().toString())){
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())){
-                    if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
-                        try{
-                            autoIDGenerate();
-                            editTextName.getText().toString();
-                            editTextIC.getText().toString();
-                            editTextContact.getText().toString();
-                            editTextEmail.getText().toString();
-                            homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
-                            encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
-                            encryptedPin = encrypt(editTextPin.getText().toString(), password);
+                    if(editTextPin.getText().toString().length() == 4 && editTextRepin.getText().toString().length() == 4){
+                        if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
+                            try{
+                                autoIDGenerate();
+                                editTextName.getText().toString();
+                                editTextIC.getText().toString();
+                                editTextContact.getText().toString();
+                                editTextEmail.getText().toString();
+                                homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
+                                encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
+                                encryptedPin = encrypt(editTextPin.getText().toString(), password);
 
-                            //decryptedPassword = decrypt(encryptedPassword, password);
-                            //decryptedPin = decrypt(encryptedPin, password);
+                                //decryptedPassword = decrypt(encryptedPassword, password);
+                                //decryptedPin = decrypt(encryptedPin, password);
 
-                            Account account = new Account();
-                            account.setId(incrementAccountID);
-                            account.setName(editTextName.getText().toString());
-                            account.setIcnum(editTextIC.getText().toString());
-                            account.setContactnum(editTextContact.getText().toString());
-                            account.setAddress(homeAddress);
-                            account.setEmail(editTextEmail.getText().toString());
-                            account.setPassword(encryptedPassword);
-                            account.setPin(encryptedPin);
-                            successfulSignUp();
+                                Account account = new Account();
+                                account.setId(incrementAccountID);
+                                account.setName(editTextName.getText().toString());
+                                account.setIcnum(editTextIC.getText().toString());
+                                account.setContactnum(editTextContact.getText().toString());
+                                account.setAddress(homeAddress);
+                                account.setEmail(editTextEmail.getText().toString());
+                                account.setPassword(encryptedPassword);
+                                account.setPin(encryptedPin);
+                                successfulSignUp();
 
-                            try {
-                                makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                try {
+                                    makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }catch (Exception e){
+                                Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
                             }
-                        }catch (Exception e){
-                            Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Your Pin is Not Matched, Please Confirm.", Toast.LENGTH_LONG).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Your Pin is Not Matched, Please Confirm.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Your Pin MUST have 4-digit.", Toast.LENGTH_LONG).show();
                     }
+
                 }else{
                     Toast.makeText(getApplicationContext(), "Your Password is Not Matched, Please Confirm.", Toast.LENGTH_LONG).show();
                 }

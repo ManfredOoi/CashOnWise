@@ -23,6 +23,7 @@
         style="@style/editText_style"
         android:ems="10"
         android:hint="@string/hint_personal_currentPin"
+        android:maxLength="4"
         android:inputType="numberPassword"
          />
 
@@ -38,6 +39,7 @@
         android:id="@+id/editTextConfirmPin"
         style="@style/editText_style"
         android:ems="10"
+        android:maxLength="4"
         android:hint="@string/hint_personal_reNewPin"
         android:inputType="numberPassword"
          />
@@ -45,6 +47,7 @@
     <Button
         android:id="@+id/button_submit_change_pin"
         style="@style/button_style"
+        android:maxLength="4"
         android:onClick="submit_changePin"
-        android:text="@string/button_submit" />
+        android:text="@string/button_submit_change_pin" />
 </LinearLayout>

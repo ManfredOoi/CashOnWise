@@ -70,42 +70,49 @@ public class ChangePinActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }else{ // after all fill up
-            if(editTextNewPin.getText().toString().equals(editTextConfirmPin.getText().toString())){
+            if(editTextConfirmPin.getText().toString().length() == 4 && editTextCurrentPin.getText().toString().length() == 4 && editTextNewPin.getText().toString().length() == 4){
+                if(editTextNewPin.getText().toString().equals(editTextConfirmPin.getText().toString())){
+                    if(decPIN.matches(editTextCurrentPin.getText().toString())) {
+                        // check if the decrypted pin is correct
+                        Account account = new Account();
+                        try {
+                            plainPIN = editTextNewPin.getText().toString();
+                            newPIN = encrypt(plainPIN, password);
+                            account.setId(userid);
+                            account.setPin(newPIN);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
-                if(decPIN.matches(editTextCurrentPin.getText().toString())) {
 
-                    // check if the decrypted pin is correct
-                    Account account = new Account();
-                   try {
-                        plainPIN = editTextNewPin.getText().toString();
-                        newPIN = encrypt(plainPIN, password);
-                       account.setId(userid);
-                        account.setPin(newPIN);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        try {
+                            makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/changePIN.php", account);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
+                        builder.setTitle("Warning");
+                        builder.setMessage("Current PIN is wrong..");
+                        builder.setPositiveButton("Okay", null);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                     }
-
-
-                    try {
-                        makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/changePIN.php", account);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }else{
+                }else{ // if the pin not identical
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
-                    builder.setTitle("Warning");
-                    builder.setMessage("Current PIN is wrong..");
+                    builder.setTitle("Request Fail");
+                    builder.setMessage("New pin number is not same as confirm pin.");
                     builder.setPositiveButton("Okay", null);
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }
-            }else{ // if the pin not identical
+            }else{
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
                 builder.setTitle("Request Fail");
-                builder.setMessage("New pin number is not same as confirm pin.");
+                builder.setMessage("All Pin MUST have exactly 4-Digit.");
                 builder.setPositiveButton("Okay", null);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
