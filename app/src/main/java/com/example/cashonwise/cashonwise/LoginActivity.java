@@ -62,10 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
         forgotButton = (Button)findViewById(R.id.buttonForgot);
+
         acList = new ArrayList<>();
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
+        retriveIDPass(getApplicationContext(), GET_URL);
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
         retriveIDPass(getApplicationContext(), GET_URL);
 
     }
@@ -98,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void verifyAccount(View view){
+
         if(editTextID.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill In Your Account Detail", Toast.LENGTH_SHORT).show();
         }else {
@@ -108,11 +116,14 @@ public class LoginActivity extends AppCompatActivity {
                 userid = acList.get(i).getId();
                 decaccount_password = acList.get(i).getPassword();
                 if (editTextID.getText().toString().equals(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
+                    Toast.makeText(getApplicationContext(), "Welcome "+userid, Toast.LENGTH_LONG).show();
 
                     // Success and proceed
                     Intent goToMenuNavi = new Intent(this, MenuActivity.class);
+                    goToMenuNavi.putExtra("msg",userid );
                     startActivity(goToMenuNavi);
                     check = true;
+
                 }
 
             }
@@ -148,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                 acList.add(account);
                             } catch (Exception e) {
                                 //e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error: " +decaccount_password +"  "+account_password, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Error: " , Toast.LENGTH_LONG).show();
                             }
                             }
 

@@ -47,7 +47,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
     RequestQueue queue;
 
     Spinner spinnerState;
-    String homeAddress;
+    String homeAddress,userid;
     CheckBox checkBoxAddress;
     EditText editTextName, editTextIC, editTextContact, editTextAddress, editTextPosCode, editTextEmail,editTextFullAddress ;
 
@@ -57,7 +57,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_view_account);
 
         pDialog = new ProgressDialog(this);
-
+        userid = getIntent().getStringExtra("msg");
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
        }
@@ -66,8 +66,6 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         spinnerState.setAdapter(adapter);
         spinnerState.setOnItemSelectedListener(ViewAccountActivity.this);
         checkBoxAddress = (CheckBox)findViewById(R.id.checkBoxAddress);
-
-
 
         checkBoxAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +128,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
 
                                 String id = accountResponse.getString("id");
 
-                                if(id.matches("1")) {
+                                if(id.matches(userid)) {
                                     String name = accountResponse.getString("name");
                                     String icnum = accountResponse.getString("icnum");
                                     String contactnum = accountResponse.getString("contactnum");
@@ -201,10 +199,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
             if(isEmailValid(editTextEmail.getText().toString())){
                 Account account = new Account();
 
-                            editTextName.getText().toString();
-                            editTextIC.getText().toString();
-                            editTextContact.getText().toString();
-                            editTextEmail.getText().toString();
+
                 if (checkBoxAddress.isChecked()) {
                     homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
                     account.setAddress(homeAddress);
@@ -212,7 +207,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                     account.setAddress(editTextFullAddress.getText().toString());
                 }
 
-                            account.setId("1");
+                            account.setId(userid);
                             account.setName(editTextName.getText().toString());
                             account.setIcnum(editTextIC.getText().toString());
                             account.setContactnum(editTextContact.getText().toString());
@@ -227,8 +222,6 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-
-
 
             }else{
                 Toast.makeText(getApplicationContext(), "Your Email Format is Wrong, Please Confirm.", Toast.LENGTH_LONG).show();

@@ -72,7 +72,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void successfulSignUp(){
-        Toast.makeText(getApplicationContext(), "Your Account Has Been Registered Successfully.", Toast.LENGTH_LONG).show();
         finish();
     }
 
