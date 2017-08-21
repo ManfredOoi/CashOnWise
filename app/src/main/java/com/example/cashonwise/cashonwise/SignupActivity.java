@@ -48,6 +48,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     private ProgressDialog pDialog;
     RequestQueue queue;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
+    String pin = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
