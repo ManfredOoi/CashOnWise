@@ -45,7 +45,7 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        userid = getIntent().getStringExtra("msg");
+        userid = getIntent().getStringExtra("passID");
 
     }
 

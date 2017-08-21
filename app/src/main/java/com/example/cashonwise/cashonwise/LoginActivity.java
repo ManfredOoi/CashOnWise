@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Success and proceed
                     Intent goToMenuNavi = new Intent(this, MenuActivity.class);
-                    goToMenuNavi.putExtra("msg",userid );
+                    goToMenuNavi.putExtra("passID",userid );
                     startActivity(goToMenuNavi);
                     check = true;
 
