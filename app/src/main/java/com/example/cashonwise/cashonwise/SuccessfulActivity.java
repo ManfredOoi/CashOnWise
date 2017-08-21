@@ -78,7 +78,7 @@ public class SuccessfulActivity extends AppCompatActivity {
                 circleProgressBar.setProgress(progressValue);
                 if(progressValue >= 100){
                     circleProgressBar.setVisibility(View.INVISIBLE);
-                    //finish();
+                    finish();
                 }
             }
 
@@ -180,7 +180,7 @@ public class SuccessfulActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                 }else{
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                    finish();
+                                    //finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -255,7 +255,7 @@ public class SuccessfulActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                 }else{
                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                    finish();
+                                    //finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
