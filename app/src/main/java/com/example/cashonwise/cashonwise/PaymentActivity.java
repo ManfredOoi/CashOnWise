@@ -46,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Button button_scan, button_proceed;
     private EditText editTextPin_payment, editTextAmountToPay;
     private double Money;
-    private String date, place, decryptedPin, userid, account_Pin, decaccount_Pin;;
+    private String date, place, decryptedPin, userid, account_Pin, decaccount_Pin, fullFormatDate;;
 
     private ProgressDialog pDialog;
     RequestQueue queue;
@@ -166,10 +166,12 @@ public class PaymentActivity extends AppCompatActivity {
                 }
                 else {
                     resultQR = result.getContents();
+                    fullFormatDate = resultQR.substring(0, 10);
                     date = resultQR.substring(0, 10);
                     date = date.replace("/", "");
                     place = resultQR.substring(10, resultQR.length() - 6);
                     Money = Double.parseDouble(resultQR.substring(resultQR.length() - 6, resultQR.length())) / 100;
+
                     if(Money > 9999.99){
                         Toast.makeText(this, "Invalid QR Format. Please Refer To Cashier", Toast.LENGTH_SHORT).show();
                     }else{
@@ -196,6 +198,7 @@ public class PaymentActivity extends AppCompatActivity {
             decaccount_Pin = acList.get(i).getPassword();
             if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
                 Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
+                successfulActivity.putExtra("FULLDATE", fullFormatDate);
                 successfulActivity.putExtra("LOCATION", place);
                 successfulActivity.putExtra("DATE", date);
                 successfulActivity.putExtra("AMOUNTPAID", Money);
