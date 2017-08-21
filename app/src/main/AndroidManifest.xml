@@ -22,10 +22,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme" >
-
-        </activity>
-
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".PaymentActivity"
             android:label="@string/title_activity_payment"
@@ -43,21 +40,25 @@
                 android:value=".LoginActivity" />
         </activity>
         <activity android:name=".SuccessfulActivity" />
-
         <activity android:name=".ViewAccountActivity" />
-
         <activity android:name=".TransactionHistoryActivity" />
-
         <activity android:name=".TopUpActivity" />
-
-        <activity android:name=".BalanceActivity"
-                android:label="@string/title_activity_payment"
-                android:theme="@style/AppTheme.AppBarOverlay">
+        <activity
+            android:name=".BalanceActivity"
+            android:label="@string/title_activity_chkBalance"
+            android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
+        <activity android:name=".ChangePinActivity"
+            android:label="@string/title_activity_changePin"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
 
+        </activity>
     </application>
 
 </manifest>
