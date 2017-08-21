@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
     app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="com.example.cashonwise.cashonwise.ViewAccountActivity">
+    tools:context="com.example.cashonwise.cashonwise.AddBankActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:textSize="30sp"
                 android:layout_marginBottom="5dp"
-                android:text="Profile"
+                android:text="Add Bank Account"
                 android:textColor="#00ff73"
                 />
 
@@ -81,15 +81,15 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextFullAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="50"
-                android:maxLength="100"
-                android:hint="Your Address"
-                android:inputType="textMultiLine"
-                />
+                <EditText
+                    android:id="@+id/editTextFullAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="50"
+                    android:maxLength="100"
+                    android:hint="Your Address"
+                    android:inputType="textMultiLine"
+                    />
             </android.support.design.widget.TextInputLayout>
             <CheckBox
                 android:id="@+id/checkBoxAddress"
@@ -168,17 +168,40 @@
                     />
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter Your Password for Bank Account"
+                    android:inputType="textPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editTextRePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_personal_repassword"
+                    android:inputType="textPassword"
+                    />
+            </android.support.design.widget.TextInputLayout>
             <Button
-                android:id="@+id/button_signup"
+                android:id="@+id/button_addBank"
                 style="@style/button_style"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:onClick="onClickSave"
                 android:layout_marginBottom="15dp"
-                android:text="Save Change" />
+                android:onClick="onClickSave"
+                android:text="Add Bank" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

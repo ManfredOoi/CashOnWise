@@ -188,39 +188,39 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             }
 
             if(numChar == 1){
-                accountID = accountID.replaceAll("C", "");
+                accountID = accountID.replaceAll("B", "");
                 numberM = Integer.parseInt(accountID) + 1;
-                incrementAccountID = 'C' + Integer.toString(numberM);
+                incrementAccountID = 'B' + Integer.toString(numberM);
                 if(numberM > 9999){
                     incrementAccountID = "";
                 }
             }else if(numChar == 2){
-                accountID = accountID.replaceAll("C0", "");
+                accountID = accountID.replaceAll("B0", "");
                 numberM = Integer.parseInt(accountID) + 1;
-                incrementAccountID = "C0" + Integer.toString(numberM);
+                incrementAccountID = "B0" + Integer.toString(numberM);
                 if(numberM == 1000){
-                    incrementAccountID = incrementAccountID.replaceAll("C0", "");
-                    incrementAccountID = "C" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B0", "");
+                    incrementAccountID = "B" + incrementAccountID;
                 }
             }else if(numChar == 3){
-                accountID = accountID.replaceAll("C00", "");
+                accountID = accountID.replaceAll("B00", "");
                 numberM = Integer.parseInt(accountID) + 1;
-                incrementAccountID = "C00" + Integer.toString(numberM);
+                incrementAccountID = "B00" + Integer.toString(numberM);
                 if(numberM == 100){
-                    incrementAccountID = incrementAccountID.replaceAll("C00", "");
-                    incrementAccountID = "C0" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B00", "");
+                    incrementAccountID = "B0" + incrementAccountID;
                 }
             }else if(numChar == 4){
-                accountID = accountID.replaceAll("C000", "");
+                accountID = accountID.replaceAll("B000", "");
                 numberM = Integer.parseInt(accountID) + 1;
-                incrementAccountID = "C000" + Integer.toString(numberM);
+                incrementAccountID = "B000" + Integer.toString(numberM);
                 if(numberM == 10){
-                    incrementAccountID = incrementAccountID.replaceAll("C000", "");
-                    incrementAccountID = "C00" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B000", "");
+                    incrementAccountID = "B00" + incrementAccountID;
                 }
             }
         }else{
-            incrementAccountID = "C0001";
+            incrementAccountID = "B0001";
         }
 
     }

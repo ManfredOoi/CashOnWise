@@ -21,9 +21,9 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:launchMode="singleTop"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme"></activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".PaymentActivity"
             android:label="@string/title_activity_payment"
@@ -47,19 +47,26 @@
         <activity
             android:name=".BalanceActivity"
             android:label="@string/title_activity_chkBalance"
-        android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-        <activity android:name=".ChangePinActivity"
+        <activity
+            android:name=".ChangePinActivity"
             android:label="@string/title_activity_changePin"
             android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
-
         </activity>
+        <activity android:name=".AddBankActivity"
+            android:label="Add Bank Accoount"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+            </activity>
     </application>
 
 </manifest>

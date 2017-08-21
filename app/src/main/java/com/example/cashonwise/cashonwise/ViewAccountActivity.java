@@ -74,12 +74,10 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                 if (((CheckBox) v).isChecked()) {
                     editTextAddress.setEnabled(true);
                     editTextPosCode.setEnabled(true);
-                    editTextFullAddress.setEnabled(false);
                     spinnerState.setEnabled(true);
                 } else {
                     editTextAddress.setEnabled(false);
                     editTextPosCode.setEnabled(false);
-                    editTextFullAddress.setEnabled(true);
                     spinnerState.setEnabled(false);
                 }
             }
@@ -94,8 +92,9 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         editTextAddress.setEnabled(false);
         editTextPosCode.setEnabled(false);
         spinnerState.setEnabled(false);
+        editTextFullAddress.setEnabled(false);
 
-        downloadCourse(getApplicationContext(), GET_URL);
+        downloadDetails(getApplicationContext(), GET_URL);
     }
 
 
@@ -107,7 +106,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
     }
-    private void downloadCourse(Context context, String url) {
+    private void downloadDetails(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
 
@@ -142,14 +141,6 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                                     editTextContact.setText(account.getContactnum());
                                     editTextFullAddress.setText(account.getAddress());
                                     editTextEmail.setText(account.getEmail());
-
-                                    //textViewName.setText(textViewName.getText() + ":");
-                                    //textViewIC.setText(textViewIC.getText() + ":");
-                                    //textViewContact.setText(textViewContact.getText() + ":");
-                                    //textViewAddress.setText(textViewAddress.getText() + ":");
-                                    //textViewEmail.setText(textViewEmail.getText() + ":");
-                                    //textViewPassword.setText(textViewPassword.getText() + ":");
-                                    //textViewPIN.setText(textViewPIN.getText() + ":");
                                 }
                             }
 
@@ -235,9 +226,6 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         return matcher.matches();
     }
 
-    public void btncancel(View v){
-        finish();
-    }
     public void makeServiceCall(Context context, String url, final Account account) {
         //mPostCommentResponse.requestStarted();
         RequestQueue queue = Volley.newRequestQueue(context);
