@@ -86,6 +86,7 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            // Handle the camera action
             Intent intent = new Intent(this, ViewAccountActivity.class);
             intent.putExtra("passID", userid);
             startActivity(intent);
@@ -103,10 +104,6 @@ public class MenuActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
-            intent.putExtra("passID", userid);
-            startActivity(intent);
-        } else if (id == R.id.nav_bank_account) {
-            Intent intent = new Intent(this, AddBankActivity.class);
             intent.putExtra("passID", userid);
             startActivity(intent);
         } else if (id == R.id.nav_change_pin) {

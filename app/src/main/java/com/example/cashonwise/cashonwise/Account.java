@@ -31,6 +31,13 @@ public class Account {
         this.password = password;
     }
 
+    public Account(String id, String password, String name, String email) {
+        this.id = id;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+    }
+
     public Account(String name, String icnum, String contactnum, String address, String email) {
         this.name = name;
         this.icnum = icnum;
