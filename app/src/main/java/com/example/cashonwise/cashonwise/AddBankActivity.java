@@ -201,6 +201,7 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                         bankAcc.setEmail(editTextEmail.getText().toString());
                         bankAcc.setPassword(encryptedPassword);
                         bankAcc.setType("");
+                        bankAcc.setBalance("");
                         bankAcc.setCow_id(userid);
 
                         try {
@@ -307,6 +308,7 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                     params.put("email", bankAcc.getEmail());
                     params.put("password", bankAcc.getPassword());
                     params.put("type", bankAcc.getType());
+                    params.put("balance", bankAcc.getBalance());
                     params.put("cow_id", bankAcc.getCow_id());
                     return params;
                 }
