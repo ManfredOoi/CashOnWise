@@ -69,6 +69,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         editTextRepin = (EditText)findViewById(R.id.editTextRePin);
         pDialog = new ProgressDialog(this);
         findLastID(getApplicationContext(), GET_URL);
+
+
+
     }
 
     public void successfulSignUp(){
@@ -174,7 +177,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void autoIDGenerate(){
-        accountID = "";
+        accountID = LastID;
         if(accountID != null){
             numChar = 0;
             for(int i = 0 ; i < accountID.length(); i++){
