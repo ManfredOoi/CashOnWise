@@ -14,6 +14,7 @@ public class Account {
     private String password;
     private String pin;
     private String balance;
+    private String status;
 
 
     public Account() {
@@ -65,6 +66,27 @@ public class Account {
         this.email = email;
         this.password = password;
         this.pin = pin;
+    }
+
+    public Account(String id, String name, String icnum, String contactnum, String address, String email, String password, String pin, String balance, String status) {
+        this.id = id;
+        this.name = name;
+        this.icnum = icnum;
+        this.contactnum = contactnum;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.pin = pin;
+        this.balance = balance;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getBalance() {

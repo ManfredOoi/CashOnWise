@@ -31,7 +31,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTransaction.setAdapter(adapter);
 
-        Intent intent = getIntent();
-        userId = intent.getExtras().toString();
+        userId = getIntent().getStringExtra("passID");
     }
 }
