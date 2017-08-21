@@ -148,14 +148,14 @@ public class LoginActivity extends AppCompatActivity {
                             acList.clear();
 
                             for (int i = 0; i < response.length(); i++) {
-                                try{
-                                JSONObject accountResponse = (JSONObject) response.get(i);
+                                        try{
+                                            JSONObject accountResponse = (JSONObject) response.get(i);
 
-                                userid = accountResponse.getString("id");
-                                account_password = accountResponse.getString("password");
-                                decaccount_password = decrypt(account_password, password);
-                                Account account = new Account(userid, decaccount_password);
-                                acList.add(account);
+                                            userid = accountResponse.getString("id");
+                                            account_password = accountResponse.getString("password");
+                                            decaccount_password = decrypt(account_password, password);
+                                            Account account = new Account(userid, decaccount_password);
+                                            acList.add(account);
                             } catch (Exception e) {
                                 //e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " , Toast.LENGTH_LONG).show();

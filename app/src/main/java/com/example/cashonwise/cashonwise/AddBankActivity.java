@@ -177,29 +177,30 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
         return matcher.matches();
     }
     public void onClickSave(View view){
-        if (editTextName.getText().toString().isEmpty() || editTextIC.getText().toString().isEmpty() || editTextContact.getText().toString().isEmpty()   || editTextEmail.getText().toString().isEmpty()){
+        if (editTextName.getText().toString().isEmpty() || editTextIC.getText().toString().isEmpty() || editTextContact.getText().toString().isEmpty()   || editTextEmail.getText().toString().isEmpty() ||editTextPassword.getText().toString().isEmpty()||editTextRePassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill Up All the Detail.", Toast.LENGTH_LONG).show();
         }else{
             if(isEmailValid(editTextEmail.getText().toString())){
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())) {
                     try {
                         BankAcc bankAcc = new BankAcc();
-
+                        autoIDGenerate();
                         if (checkBoxAddress.isChecked()) {
                             homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
                             bankAcc.setAddress(homeAddress);
                         } else {
                             bankAcc.setAddress(editTextFullAddress.getText().toString());
                         }
+                        encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
 
-                        autoIDGenerate();
+
                         bankAcc.setId(incrementAccountID);
                         bankAcc.setName(editTextName.getText().toString());
                         bankAcc.setIcnum(editTextIC.getText().toString());
                         bankAcc.setContactnum(editTextContact.getText().toString());
-                        encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
                         bankAcc.setEmail(editTextEmail.getText().toString());
                         bankAcc.setPassword(encryptedPassword);
+                        bankAcc.setType("");
                         bankAcc.setCow_id(userid);
 
                         try {
@@ -304,7 +305,8 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                     params.put("contactnum", bankAcc.getContactnum());
                     params.put("address", bankAcc.getAddress());
                     params.put("email", bankAcc.getEmail());
-                    params.put("password", bankAcc.getEmail());
+                    params.put("password", bankAcc.getPassword());
+                    params.put("type", bankAcc.getType());
                     params.put("cow_id", bankAcc.getCow_id());
                     return params;
                 }

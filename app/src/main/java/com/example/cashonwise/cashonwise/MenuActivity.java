@@ -106,9 +106,9 @@ public class MenuActivity extends AppCompatActivity
             intent.putExtra("passID", userid);
             startActivity(intent);
         } else if (id == R.id.nav_bank_account) {
-            //Intent intent = new Intent(this, PaymentActivity.class);
-            //intent.putExtra("passID", userid);
-            //startActivity(intent);
+            Intent intent = new Intent(this, AddBankActivity.class);
+            intent.putExtra("passID", userid);
+            startActivity(intent);
         } else if (id == R.id.nav_change_pin) {
             Intent intent = new Intent(this, ChangePinActivity.class);
             intent.putExtra("passID", userid);
