@@ -16,8 +16,8 @@ public class SuccessfulActivity extends AppCompatActivity {
     private CircleProgressBar circleProgressBar;
     int progressValue = 0, numChar, numberT;
     Random increment = new Random();
-    String transactionID = "21082017T100029"; // from DB
-    String newTransactionID = "", dates, location;
+    String transactionID = "20082017T100029"; // from DB
+    String newTransactionID = "", dates, location, fullFormatDate;
     double amountPaid;
     char checkChar;
     @Override
@@ -28,6 +28,7 @@ public class SuccessfulActivity extends AppCompatActivity {
         circleProgressBar.setColorSchemeColors(android.R.color.holo_blue_bright);
 
         Intent fromPaymentActivity = getIntent();
+        fullFormatDate = fromPaymentActivity.getStringExtra("FULLDATE");
         amountPaid = fromPaymentActivity.getDoubleExtra("AMOUNTPAID", 0.00);
         dates = fromPaymentActivity.getStringExtra("DATE").toString(); // From QR
         location = fromPaymentActivity.getStringExtra("LOCATION").toString();
@@ -37,8 +38,8 @@ public class SuccessfulActivity extends AppCompatActivity {
         // deduct the e-balance
 
         // save the update balance
-
-        saveTransactionRecord(newTransactionID, newTransactionID, location, dates, amountPaid);
+        Toast.makeText(getApplicationContext(), newTransactionID, Toast.LENGTH_LONG).show();
+        saveTransactionRecord(newTransactionID, newTransactionID, location, dates, fullFormatDate, amountPaid);
 
         circleProgressBar.setVisibility(View.VISIBLE);
         CountDownTimer countDownTimer = new CountDownTimer(7000, 500) {
@@ -61,7 +62,8 @@ public class SuccessfulActivity extends AppCompatActivity {
 
     public void autoTransactionID(String dateFromQR){
         //check if the database has record, else New ID
-        String dateFromDB = "21082017"; // after get from db and substring(0, 8)
+        // Example: DB retrieve 20082017T000100
+        String dateFromDB = "20082017"; // after get from db and substring(0, 8)
         if(transactionID != null){
             if(dateFromQR.equals(dateFromDB)){
                 transactionID = transactionID.substring(8, transactionID.length());
@@ -124,16 +126,16 @@ public class SuccessfulActivity extends AppCompatActivity {
                     }
                 } // end of process generate
             }else{
-                newTransactionID = dateFromDB + "T000001";
-            }// end checking database existing record
+                newTransactionID = dateFromQR + "T000001";
+            }// end checking the QR date whether match to DB date if not, then create a new one which is the QR generate to us the date
         }else{
-            newTransactionID = dateFromQR + "T000001";
-        } // end checking date
+            newTransactionID = dateFromQR + "T000001"; // check if the DB
+        } // end checking if there is no ID in the DB
         //Toast.makeText(getApplicationContext(), "ID: " + newTransactionID, Toast.LENGTH_LONG).show();
 
     } // end of auto-generate
 
-    public void saveTransactionRecord(String ID, String newID, String location, String date, double amountPaid){
+    public void saveTransactionRecord(String ID, String newID, String location, String date, String fullDate, double amountPaid){
 
     }
 }
