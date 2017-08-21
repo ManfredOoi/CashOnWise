@@ -33,7 +33,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 public class LoginActivity extends AppCompatActivity {
-    //public static String ACCOUNTID;
     public static final String TAG = "com.example.cashonwise.cashonwise";
     List<Account> acList;
     private EditText editTextID;
@@ -72,6 +71,12 @@ public class LoginActivity extends AppCompatActivity {
         retriveIDPass(getApplicationContext(), GET_URL);
 
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        retriveIDPass(getApplicationContext(), GET_URL);
+
+    }
     private boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -101,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void verifyAccount(View view){
+
         if(editTextID.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill In Your Account Detail", Toast.LENGTH_SHORT).show();
         }else {

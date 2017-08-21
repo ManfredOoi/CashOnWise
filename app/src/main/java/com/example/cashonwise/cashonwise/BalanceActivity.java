@@ -32,7 +32,8 @@ public class BalanceActivity extends AppCompatActivity {
     private String currentBalance="0", spaceAvailable;
     private ProgressDialog pDialog;
     RequestQueue queue;
-    String userid,balance="0";
+    String balance="0";
+    String userid;
 
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
     @Override
@@ -40,9 +41,8 @@ public class BalanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
 
-
-        pDialog = new ProgressDialog(this);
         userid = getIntent().getStringExtra("msg");
+        pDialog = new ProgressDialog(this);
         retriveBalance(getApplicationContext(), GET_URL);
 
     }
@@ -103,7 +103,7 @@ public class BalanceActivity extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++) {
 
                                     JSONObject accountResponse = (JSONObject) response.get(i);
-
+                                balance="";
                                     String id = accountResponse.getString("id");
                                     if(id.matches(userid)){
                                         balance = accountResponse.getString("balance");

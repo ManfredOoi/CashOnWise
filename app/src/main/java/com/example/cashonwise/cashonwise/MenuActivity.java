@@ -88,9 +88,11 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             // Handle the camera action
             Intent intent = new Intent(this, ViewAccountActivity.class);
+            intent.putExtra("msg", userid);
             startActivity(intent);
         } else if (id == R.id.nav_top_up) {
             Intent intent = new Intent(this, TopUpActivity.class);
+            intent.putExtra("msg", userid);
             startActivity(intent);
         } else if (id == R.id.nav_balance) {
             Intent intent = new Intent(this, BalanceActivity.class);
@@ -98,9 +100,11 @@ public class MenuActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_transaction_history) {
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
+            intent.putExtra("msg", userid);
             startActivity(intent);
         } else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
+            intent.putExtra("msg", userid);
             startActivity(intent);
         } else if (id == R.id.nav_change_pin) {
 
