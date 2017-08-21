@@ -206,7 +206,6 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                 }else{
                     account.setAddress(editTextFullAddress.getText().toString());
                 }
-
                             account.setId(userid);
                             account.setName(editTextName.getText().toString());
                             account.setIcnum(editTextIC.getText().toString());
