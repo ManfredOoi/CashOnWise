@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -115,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 userid = acList.get(i).getId();
                 decaccount_password = acList.get(i).getPassword();
-                if (editTextID.getText().toString().equals(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
+                if (editTextID.getText().toString().equalsIgnoreCase(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
                     Toast.makeText(getApplicationContext(), "Welcome "+userid, Toast.LENGTH_LONG).show();
 
                     // Success and proceed

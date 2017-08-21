@@ -20,7 +20,6 @@ public class SuccessfulActivity extends AppCompatActivity {
     String newTransactionID = "", dates, location;
     double amountPaid;
     char checkChar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

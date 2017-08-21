@@ -1,6 +1,10 @@
 package com.example.cashonwise.cashonwise;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,22 +19,39 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.example.cashonwise.cashonwise.SignupActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class PaymentActivity extends AppCompatActivity {
+    public static final String TAG = "com.example.cashonwise.cashonwise";
+    List<Account> acList;
     private String AES = "AES", password = "COW12345";
     private Button button_scan, button_proceed;
     private EditText editTextPin_payment, editTextAmountToPay;
     private double Money;
-    private String date, place, decryptedPin;
+    private String date, place, decryptedPin, userid, account_Pin, decaccount_Pin;;
+
+    private ProgressDialog pDialog;
+    RequestQueue queue;
+    private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +77,82 @@ public class PaymentActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+        pDialog = new ProgressDialog(this);
+        acList = new ArrayList<>();
+        if (!isConnected()) {
+            Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
+        }
+        retriveIDPass(getApplicationContext(), GET_URL);
 
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        retriveIDPass(getApplicationContext(), GET_URL);
+
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+    }
+
+    private void retriveIDPass(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+
+        if (!pDialog.isShowing())
+            pDialog.setMessage("Loading...");
+        pDialog.show();
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            acList.clear();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                try{
+                                    JSONObject accountResponse = (JSONObject) response.get(i);
+
+                                    userid = accountResponse.getString("id");
+                                    account_Pin = accountResponse.getString("pin");
+                                    decaccount_Pin = decrypt(account_Pin, password);
+                                    Account account = new Account(userid, decaccount_Pin);
+                                    acList.add(account);
+                                } catch (Exception e) {
+                                    //e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "Error: " , Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            if (pDialog.isShowing())
+                                pDialog.dismiss();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (pDialog.isShowing())
+                            pDialog.dismiss();
+                    }
+                });
+        // Set the tag on the request.
+        jsonObjectRequest.setTag(TAG);
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
     }
 
     @Override
@@ -93,24 +189,30 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickProceedPayment(View view){
-        //get Pin from DB
-        decryptedPin = "";
-        // Decrypt Pin
-        //decryptedPin = decrypt(" ", password);;
+    public void onClickProceedPayment(View view){ //---------------------------------------------------------------------------
+        boolean check = false;
+        for (int i = 0; i < acList.size(); i++) {
+            userid = acList.get(i).getId();
+            decaccount_Pin = acList.get(i).getPassword();
+            if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
+                Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
+                successfulActivity.putExtra("LOCATION", place);
+                successfulActivity.putExtra("DATE", date);
+                successfulActivity.putExtra("AMOUNTPAID", Money);
+                startActivity(successfulActivity);
+                check = true;
+                finish();
+                break;
+            }else{
+                Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
+            }
 
-        if(editTextPin_payment.getText().toString().equals("1234")){
-            Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
-            successfulActivity.putExtra("LOCATION", place);
-            successfulActivity.putExtra("DATE", date);
-            successfulActivity.putExtra("AMOUNTPAID", Money);
-            startActivity(successfulActivity);
-            finish();
-        }else{
-            Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
         }
-    }
+        if (check == false){
+            Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_LONG).show();
+        }
 
+    }
 
     private String decrypt(String encryptedPassword, String password)throws Exception{
         SecretKeySpec key = generateKey(password);
