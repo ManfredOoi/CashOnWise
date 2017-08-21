@@ -95,8 +95,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //dialog.dismiss();
-        pDialog.dismiss();
     }
 
 
@@ -113,6 +111,14 @@ public class LoginActivity extends AppCompatActivity {
         View mView = getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
         final EditText editTextLoginId = (EditText)mView.findViewById(R.id.editTextLoginId);
         Button buttonConfirm = (Button)mView.findViewById(R.id.buttonConfirm);
+        Button buttonCancel = (Button)mView.findViewById(R.id.buttonCancel);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 userid = acList.get(i).getId();
                 decaccount_password = acList.get(i).getPassword();
-                if (editTextID.getText().toString().equals(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
+                if (editTextID.getText().toString().equalsIgnoreCase(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
                     Toast.makeText(getApplicationContext(), "Welcome "+userid, Toast.LENGTH_LONG).show();
 
                     // Success and proceed
