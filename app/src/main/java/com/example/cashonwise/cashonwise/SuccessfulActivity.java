@@ -77,7 +77,7 @@ public class SuccessfulActivity extends AppCompatActivity {
                 circleProgressBar.setProgress(progressValue);
                 if(progressValue >= 100){
                     circleProgressBar.setVisibility(View.INVISIBLE);
-                    finish();
+                    //finish();
                 }
             }
 
