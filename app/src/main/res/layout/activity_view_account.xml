@@ -44,7 +44,7 @@
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_personal_name"
+                    android:hint="Your Name"
                     android:ems="10"
                     />
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:maxLength="12"
-                    android:hint="@string/hint_personal_ic"
+                    android:hint="Your IC Number"
                     android:inputType="number"
                     />
             </android.support.design.widget.TextInputLayout>
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:maxLength="11"
-                    android:hint="@string/hint_personal_contactno"
+                    android:hint="Your Contact Number"
                     android:inputType="number"
                     />
 
@@ -85,10 +85,10 @@
                 android:id="@+id/editTextFullAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="50"
                 android:maxLength="100"
-                android:hint="@string/hint_personal_address"
-                android:inputType="number"
+                android:hint="Your Address"
+                android:inputType="textMultiLine"
                 />
             </android.support.design.widget.TextInputLayout>
             <CheckBox
@@ -163,7 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/hint_personal_email"
+                    android:hint="Your Personal Email"
                     android:inputType="textEmailAddress"
                     />
             </android.support.design.widget.TextInputLayout>

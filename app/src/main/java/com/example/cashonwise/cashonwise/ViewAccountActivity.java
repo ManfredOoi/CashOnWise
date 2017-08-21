@@ -74,12 +74,10 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
                 if (((CheckBox) v).isChecked()) {
                     editTextAddress.setEnabled(true);
                     editTextPosCode.setEnabled(true);
-                    editTextFullAddress.setEnabled(false);
                     spinnerState.setEnabled(true);
                 } else {
                     editTextAddress.setEnabled(false);
                     editTextPosCode.setEnabled(false);
-                    editTextFullAddress.setEnabled(true);
                     spinnerState.setEnabled(false);
                 }
             }
@@ -94,6 +92,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         editTextAddress.setEnabled(false);
         editTextPosCode.setEnabled(false);
         spinnerState.setEnabled(false);
+        editTextFullAddress.setEnabled(false);
 
         downloadCourse(getApplicationContext(), GET_URL);
     }
