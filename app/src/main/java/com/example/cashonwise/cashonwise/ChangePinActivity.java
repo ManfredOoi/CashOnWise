@@ -94,6 +94,13 @@ public class ChangePinActivity extends AppCompatActivity {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
+                    builder.setTitle("Warning");
+                    builder.setMessage("Current PIN is wrong..");
+                    builder.setPositiveButton("Okay", null);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             }else{ // if the pin not identical
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
