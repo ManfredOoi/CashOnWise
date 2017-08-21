@@ -38,4 +38,7 @@ dependencies {
     compile files('C:/Users/Teddy/Google Drive/Academic/Y2S3/BAIT2073 Mobile Application Development/Assignment/Code/CashOnWise/.idea/libraries/mail.jar')
     compile files('C:/Users/Teddy/Google Drive/Academic/Y2S3/BAIT2073 Mobile Application Development/Assignment/Code/CashOnWise/.idea/libraries/additionnal.jar')
     compile files('C:/Users/Teddy/Google Drive/Academic/Y2S3/BAIT2073 Mobile Application Development/Assignment/Code/CashOnWise/.idea/libraries/activation.jar')
+    compile files('build/additionnal.jar')
+    compile files('build/mail.jar')
+    compile files('build/activation.jar')
 }
