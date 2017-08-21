@@ -2,6 +2,7 @@ package com.example.cashonwise.cashonwise;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -24,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.PieChart;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -45,7 +48,7 @@ public class PaymentActivity extends AppCompatActivity {
     private String AES = "AES", password = "COW12345";
     private Button button_scan, button_proceed;
     private EditText editTextPin_payment, editTextAmountToPay;
-    private double Money;
+    private double Money, accountBalance;
     private String date, place, decryptedPin, userid, account_Pin, decaccount_Pin, fullFormatDate;;
 
     private ProgressDialog pDialog;
@@ -88,11 +91,14 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    public void onClickProceedPayment(View view){ //---------------------------------------------------------------------------
+        retriveBalance(getApplicationContext(), GET_URL);
+    }
+
     @Override
     public void onResume(){
         super.onResume();
         retriveIDPass(getApplicationContext(), GET_URL);
-
     }
 
     private boolean isConnected() {
@@ -101,7 +107,6 @@ public class PaymentActivity extends AppCompatActivity {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
     }
 
     private void retriveIDPass(Context context, String url) {
@@ -158,6 +163,53 @@ public class PaymentActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
+    private void retriveBalance(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+
+        if (!pDialog.isShowing())
+            pDialog.setMessage("Loading...");
+        pDialog.show();
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject accountResponse = (JSONObject) response.get(i);
+                                String id = accountResponse.getString("id");
+                                if(id.matches(userid)){
+                                    accountBalance = Double.parseDouble(accountResponse.getString("balance"));
+                                    transactionRecordProcess();
+                                }
+                            }
+
+                            if (pDialog.isShowing())
+                                pDialog.dismiss();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (pDialog.isShowing())
+                            pDialog.dismiss();
+                    }
+                });
+
+        // Set the tag on the request.
+        jsonObjectRequest.setTag(TAG);
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -194,13 +246,10 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickProceedPayment(View view){ //---------------------------------------------------------------------------
-        boolean check = false;
-       // for (int i = 0; i < acList.size(); i++) {
-            //userid = acList.get(i).getId();
-            //decaccount_Pin = acList.get(i).getPassword();
-
-            if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
+    public void transactionRecordProcess(){
+        if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
+            //---------------------------------------CHECK BALANCE---------------------------------------
+            if(accountBalance > Money){
                 Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
                 successfulActivity.putExtra("FULLDATE", fullFormatDate);
                 successfulActivity.putExtra("LOCATION", place);
@@ -208,18 +257,19 @@ public class PaymentActivity extends AppCompatActivity {
                 successfulActivity.putExtra("AMOUNTPAID", Money);
                 successfulActivity.putExtra("passID", userid);
                 startActivity(successfulActivity);
-                check = true;
                 finish();
-                //break;
             }else{
-                Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
+                builder.setTitle("Warning");
+                builder.setMessage("Insufficient Account Balance, Please Top Up");
+                builder.setPositiveButton("yes", null);
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
-
-        //}
-        if (check == false){
-            Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
         }
-
     }
 
     private String decrypt(String encryptedPassword, String password)throws Exception{

@@ -145,18 +145,22 @@ public class SuccessfulActivity extends AppCompatActivity {
     }
 
     public void saveAccountBalance(Double accountAmount){
-
         accountAmount -= amountPaid;
-        Account account = new Account();
-        account.setId(userid);
-        account.setBalance("" + accountAmount);
+        if(accountAmount >= 0){ // if the Account Balance is left 0 or greater than 0
+            Account account = new Account();
+            account.setId(userid);
+            account.setBalance("" + accountAmount);
 
-        try {
-            makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/updateBalance.php", account);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            try {
+                makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/updateBalance.php", account);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }else{ // if negative value then no proceed
+            Toast.makeText(getApplicationContext(), "Insufficient Account Balance. Please Top Up.", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void makeServiceCall(Context context, String url, final Account account) {
