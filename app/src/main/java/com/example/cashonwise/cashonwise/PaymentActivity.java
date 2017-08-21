@@ -217,7 +217,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         //}
         if (check == false){
-            Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_LONG).show();
         }
 
     }

@@ -36,10 +36,12 @@ import java.util.Random;
 public class SuccessfulActivity extends AppCompatActivity {
     public static final String TAG = "com.example.cashonwise.cashonwise";
     List<Account> acList;
-    String userid, balance="0";
+    String userid, balance="0",LastID;
     private ProgressDialog pDialog;
     RequestQueue queue;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
+    private static String GET_TRAN_URL = "https://cash-on-wise.000webhostapp.com/transactionDetail.php";
+
     private CircleProgressBar circleProgressBar;
     int progressValue = 0, numChar, numberT;
     Random increment = new Random();
@@ -60,14 +62,13 @@ public class SuccessfulActivity extends AppCompatActivity {
         amountPaid = fromPaymentActivity.getDoubleExtra("AMOUNTPAID", 0.00);
         dates = fromPaymentActivity.getStringExtra("DATE").toString(); // From QR
         location = fromPaymentActivity.getStringExtra("LOCATION").toString();
-        autoTransactionID(dates);
-
+        pDialog = new ProgressDialog(this);
         userid = getIntent().getStringExtra("passID");
 
-        pDialog = new ProgressDialog(this);
+        findLastID(getApplicationContext(), GET_TRAN_URL);
+
         retriveBalance(getApplicationContext(), GET_URL);
 
-        saveTransactionRecord(userid, newTransactionID, location, dates, fullFormatDate, amountPaid);
 
         circleProgressBar.setVisibility(View.VISIBLE);
         CountDownTimer countDownTimer = new CountDownTimer(7000, 500) {
@@ -86,15 +87,10 @@ public class SuccessfulActivity extends AppCompatActivity {
                 circleProgressBar.setVisibility(View.INVISIBLE);
             }
         }.start();
+
+
     }
 
-    private boolean isConnected() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
 
     private void retriveBalance(Context context, String url) {
         // Instantiate the RequestQueue
@@ -215,10 +211,136 @@ public class SuccessfulActivity extends AppCompatActivity {
         }
     }
 
+    public void saveTransactionRecord(String IDAccount, String newTransactionID, String location, String date, String fullDate, double amountPaid){
+
+        Transaction transaction = new Transaction();
+        transaction.setId(newTransactionID);
+        transaction.setDate(fullDate);
+        transaction.setLocation(location);
+        transaction.setAmount(Double.toString(amountPaid));
+        transaction.setStatus("TopUp");
+        transaction.setCow_id(IDAccount);
+
+
+        try {
+            makeServiceCallTran(this, "https://cash-on-wise.000webhostapp.com/saveTransaction.php", transaction);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void makeServiceCallTran(Context context, String url, final Transaction transaction) {
+        //mPostCommentResponse.requestStarted();
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //Send data
+        try {
+            StringRequest postRequest = new StringRequest(
+                    Request.Method.POST,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject = new JSONObject(response);
+                                int success = jsonObject.getInt("success");
+                                String message = jsonObject.getString("message");
+                                if (success==0) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Error. " + error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id", transaction.getId());
+                    params.put("date", transaction.getDate());
+                    params.put("location", transaction.getLocation());
+                    params.put("amount", transaction.getAmount());
+                    params.put("status", transaction.getStatus());
+                    params.put("cow_id", transaction.getCow_id());
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }
+            };
+            queue.add(postRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void findLastID(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+        if (!pDialog.isShowing())
+            pDialog.setMessage("Loading...");
+
+        pDialog.show();
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            //caList.clear();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject accountResponse = (JSONObject) response.get(i);
+                                LastID = accountResponse.getString("id");
+
+                            }
+                            autoTransactionID(dates);
+                            saveTransactionRecord(userid, newTransactionID, location, dates, fullFormatDate, amountPaid);
+
+                            if (pDialog.isShowing())
+                                pDialog.dismiss();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (pDialog.isShowing())
+                            pDialog.dismiss();
+                    }
+                });
+        // Set the tag on the request.
+        jsonObjectRequest.setTag(TAG);
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
     public void autoTransactionID(String dateFromQR){
         //check if the database has record, else New ID
         // Example: DB retrieve 20082017T000100
-        String dateFromDB = "20082017"; // after get from db and substring(0, 8)
+        transactionID = LastID;
+
+        String dateFromDB = LastID.substring(0,8); // after get from db and substring(0, 8)
+        //String dateFromDB = "20082017T000100"; // after get from db and substring(0, 8)
         if(transactionID != null){
             if(dateFromQR.equals(dateFromDB)){
                 transactionID = transactionID.substring(8, transactionID.length());
@@ -289,9 +411,4 @@ public class SuccessfulActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "ID: " + newTransactionID, Toast.LENGTH_LONG).show();
 
     } // end of auto-generate
-
-    public void saveTransactionRecord(String IDAccount, String newTransactionID, String location, String date, String fullDate, double amountPaid){
-
-    }
-
 }
