@@ -202,6 +202,7 @@ public class PaymentActivity extends AppCompatActivity {
                 successfulActivity.putExtra("LOCATION", place);
                 successfulActivity.putExtra("DATE", date);
                 successfulActivity.putExtra("AMOUNTPAID", Money);
+                successfulActivity.putExtra("passID", userid);
                 startActivity(successfulActivity);
                 check = true;
                 finish();
