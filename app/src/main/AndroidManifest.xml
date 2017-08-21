@@ -41,7 +41,13 @@
                 android:value=".LoginActivity" />
         </activity>
         <activity android:name=".SuccessfulActivity" />
-        <activity android:name=".ViewAccountActivity" />
+        <activity android:name=".ViewAccountActivity"
+            android:label="Account Details"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MenuActivity" />
+        </activity>
         <activity android:name=".TransactionHistoryActivity" />
         <activity android:name=".TopUpActivity" />
         <activity
