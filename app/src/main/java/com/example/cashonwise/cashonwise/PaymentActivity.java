@@ -77,8 +77,10 @@ public class PaymentActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+        userid = getIntent().getStringExtra("passID");
+
         pDialog = new ProgressDialog(this);
-        acList = new ArrayList<>();
+        //acList = new ArrayList<>();
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
@@ -114,17 +116,20 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            acList.clear();
+                            //acList.clear();
 
                             for (int i = 0; i < response.length(); i++) {
                                 try{
                                     JSONObject accountResponse = (JSONObject) response.get(i);
 
-                                    userid = accountResponse.getString("id");
-                                    account_Pin = accountResponse.getString("pin");
-                                    decaccount_Pin = decrypt(account_Pin, password);
-                                    Account account = new Account(userid, decaccount_Pin);
-                                    acList.add(account);
+                                    String id = accountResponse.getString("id");
+                                    if(id.matches(userid)){
+                                        account_Pin = accountResponse.getString("pin");
+                                        decaccount_Pin = decrypt(account_Pin,password);
+
+                                    }
+                                    //Account account = new Account(userid, decaccount_Pin);
+                                    //acList.add(account);
                                 } catch (Exception e) {
                                     //e.printStackTrace();
                                     Toast.makeText(getApplicationContext(), "Error: " , Toast.LENGTH_LONG).show();
@@ -191,9 +196,10 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void onClickProceedPayment(View view){ //---------------------------------------------------------------------------
         boolean check = false;
-        for (int i = 0; i < acList.size(); i++) {
-            userid = acList.get(i).getId();
-            decaccount_Pin = acList.get(i).getPassword();
+       // for (int i = 0; i < acList.size(); i++) {
+            //userid = acList.get(i).getId();
+            //decaccount_Pin = acList.get(i).getPassword();
+
             if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
                 Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
                 successfulActivity.putExtra("FULLDATE", fullFormatDate);
@@ -204,12 +210,12 @@ public class PaymentActivity extends AppCompatActivity {
                 startActivity(successfulActivity);
                 check = true;
                 finish();
-                break;
+                //break;
             }else{
                 Toast.makeText(this, "Incorrect Pin Number, Please Enter Again.", Toast.LENGTH_LONG).show();
             }
 
-        }
+        //}
         if (check == false){
             Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_LONG).show();
         }

@@ -44,9 +44,10 @@ public class SuccessfulActivity extends AppCompatActivity {
     int progressValue = 0, numChar, numberT;
     Random increment = new Random();
     String transactionID = "20082017T000999"; // from DB
-    String newTransactionID = "", dates, location, fullFormatDate;
+    String newTransactionID = "", dates, location, fullFormatDate,testBalance;
     double amountPaid, accountAmount;
     char checkChar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class SuccessfulActivity extends AppCompatActivity {
         location = fromPaymentActivity.getStringExtra("LOCATION").toString();
         autoTransactionID(dates);
 
-        userid = fromPaymentActivity.getStringExtra("passID");
+        userid = getIntent().getStringExtra("passID");
 
         pDialog = new ProgressDialog(this);
         retriveBalance(getApplicationContext(), GET_URL);
@@ -108,13 +109,15 @@ public class SuccessfulActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Account account = new Account();
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject accountResponse = (JSONObject) response.get(i);
                                 String id = accountResponse.getString("id");
                                 if(id.matches(userid)){
                                     accountAmount = Double.parseDouble(accountResponse.getString("balance"));
-                                    saveAccountBalance();
+
+                                    saveAccountBalance(accountAmount);
                                 }
                             }
 
@@ -141,15 +144,12 @@ public class SuccessfulActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    public void saveAccountBalance(){
+    public void saveAccountBalance(Double accountAmount){
+
         accountAmount -= amountPaid;
         Account account = new Account();
-        try {
-            account.setBalance("" + accountAmount);
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        account.setId(userid);
+        account.setBalance("" + accountAmount);
 
         try {
             makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/updateBalance.php", account);
