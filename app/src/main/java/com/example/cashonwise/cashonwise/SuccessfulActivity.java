@@ -222,7 +222,7 @@ public class SuccessfulActivity extends AppCompatActivity {
         transaction.setDate(fullDate);
         transaction.setLocation(location);
         transaction.setAmount(Double.toString(amountPaid));
-        transaction.setStatus("TopUp");
+        transaction.setStatus("Payment");
         transaction.setCow_id(IDAccount);
 
 
