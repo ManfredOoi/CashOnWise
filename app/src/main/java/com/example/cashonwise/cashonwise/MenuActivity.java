@@ -87,7 +87,7 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             // Handle the camera action
-            Intent intent = new Intent(this, ViewAccountActivity.class);
+            Intent intent = new Intent(this, AddBankActivity.class);
             intent.putExtra("passID", userid);
             startActivity(intent);
         } else if (id == R.id.nav_top_up) {

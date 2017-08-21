@@ -193,13 +193,14 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                         }
 
                         autoIDGenerate();
-                        bankAcc.setId(userid);
+                        bankAcc.setId(incrementAccountID);
                         bankAcc.setName(editTextName.getText().toString());
                         bankAcc.setIcnum(editTextIC.getText().toString());
                         bankAcc.setContactnum(editTextContact.getText().toString());
                         encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
                         bankAcc.setEmail(editTextEmail.getText().toString());
                         bankAcc.setPassword(encryptedPassword);
+                        bankAcc.setCow_id(userid);
 
                         try {
 
@@ -304,6 +305,7 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                     params.put("address", bankAcc.getAddress());
                     params.put("email", bankAcc.getEmail());
                     params.put("password", bankAcc.getEmail());
+                    params.put("cow_id", bankAcc.getCow_id());
                     return params;
                 }
 
