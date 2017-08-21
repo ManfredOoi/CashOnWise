@@ -102,7 +102,11 @@ public class MenuActivity extends AppCompatActivity
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
             intent.putExtra("passID", userid);
             startActivity(intent);
-        } else if (id == R.id.nav_payment) {
+        } else if (id == R.id.nav_bank_account) {
+            Intent intent = new Intent(this, AddBankActivity.class);
+            intent.putExtra("passID", userid);
+            startActivity(intent);
+        }else if (id == R.id.nav_payment) {
             Intent intent = new Intent(this, PaymentActivity.class);
             intent.putExtra("passID", userid);
             startActivity(intent);

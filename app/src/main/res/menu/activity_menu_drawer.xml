@@ -21,7 +21,7 @@
         <item
             android:id="@+id/nav_bank_account"
             android:icon="@drawable/ic_link_black_24dp"
-            android:title="Bank Account" />
+            android:title="Add Bank Account" />
         <item
             android:id="@+id/nav_payment"
             android:icon="@drawable/ic_aspect_ratio_black_24dp"
