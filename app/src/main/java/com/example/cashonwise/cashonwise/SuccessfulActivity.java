@@ -368,42 +368,42 @@ public class SuccessfulActivity extends AppCompatActivity {
                 }else if(numChar == 2){
                     transactionID = transactionID.replaceAll("T0", "");
                     numberT = Integer.parseInt(transactionID) + 1;
-                    newTransactionID = dateFromDB +"T0" + Integer.toString(numberT);
                     if(numberT == 100000){
-                        newTransactionID = newTransactionID.replaceAll("T", "");
-                        newTransactionID = dateFromDB +"T" + newTransactionID;
+                        newTransactionID = dateFromDB +"T" + numberT;
+                    }else{
+                        newTransactionID = dateFromDB +"T0" + numberT;
                     }
                 }else if(numChar == 3){
                     transactionID = transactionID.replaceAll("T00", "");
                     numberT = Integer.parseInt(transactionID) + 1;
-                    newTransactionID = dateFromDB +"T00" + Integer.toString(numberT);
                     if(numberT == 10000){
-                        newTransactionID = newTransactionID.replaceAll("T0", "");
-                        newTransactionID = dateFromDB +"T0" + newTransactionID;
+                        newTransactionID = dateFromDB +"T0" + numberT;
+                    }else{
+                        newTransactionID = dateFromDB +"T00" + numberT;
                     }
                 }else if(numChar == 4){
                     transactionID = transactionID.replaceAll("T000", "");
                     numberT = Integer.parseInt(transactionID) + 1;
-                    newTransactionID = dateFromDB +"T000" + Integer.toString(numberT);
                     if(numberT == 1000){
-                        newTransactionID = newTransactionID.replaceAll("T00", "");
-                        newTransactionID = dateFromDB +"T00" + newTransactionID;
+                        newTransactionID = dateFromDB +"T00" + numberT;
+                    }else{
+                        newTransactionID = dateFromDB +"T000" + numberT;
                     }
                 }else if(numChar == 5){
                     transactionID = transactionID.replaceAll("T0000", "");
                     numberT = Integer.parseInt(transactionID) + 1;
-                    newTransactionID = dateFromDB +"T0000" + Integer.toString(numberT);
                     if(numberT == 100){
-                        newTransactionID = newTransactionID.replaceAll("T000", "");
-                        newTransactionID = dateFromDB +"T000" + newTransactionID;
+                        newTransactionID = dateFromDB +"T000" + numberT;
+                    }else {
+                        newTransactionID = dateFromDB +"T0000" + numberT;
                     }
                 }else if(numChar == 6){
                     transactionID = transactionID.replaceAll("T00000", "");
                     numberT = Integer.parseInt(transactionID) + 1;
-                    newTransactionID = dateFromDB +"T00000" + Integer.toString(numberT);
                     if(numberT == 10){
-                        newTransactionID = newTransactionID.replaceAll("T0000", "");
-                        newTransactionID = dateFromDB +"T0000" + newTransactionID;
+                        newTransactionID = dateFromDB +"T0000" + numberT;
+                    }else if(numberT < 10) {
+                        newTransactionID = dateFromDB +"T00000" + numberT;
                     }
                 } // end of process generate
             }else{
