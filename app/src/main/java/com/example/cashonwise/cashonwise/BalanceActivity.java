@@ -99,7 +99,6 @@ public class BalanceActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-
                             for (int i = 0; i < response.length(); i++) {
 
                                     JSONObject accountResponse = (JSONObject) response.get(i);

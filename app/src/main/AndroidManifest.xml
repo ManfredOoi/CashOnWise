@@ -21,6 +21,7 @@
         </activity>
         <activity
             android:name=".MenuActivity"
+            android:launchMode="singleTop"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme"></activity>
         <activity
@@ -46,7 +47,7 @@
         <activity
             android:name=".BalanceActivity"
             android:label="@string/title_activity_chkBalance"
-            android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
