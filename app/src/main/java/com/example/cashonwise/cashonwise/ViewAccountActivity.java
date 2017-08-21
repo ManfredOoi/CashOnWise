@@ -57,7 +57,7 @@ public class ViewAccountActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_view_account);
 
         pDialog = new ProgressDialog(this);
-        userid = getIntent().getStringExtra("msg");
+        userid = getIntent().getStringExtra("passID");
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
        }

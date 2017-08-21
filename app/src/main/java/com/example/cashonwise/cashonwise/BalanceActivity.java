@@ -41,7 +41,7 @@ public class BalanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
 
-        userid = getIntent().getStringExtra("msg");
+        userid = getIntent().getStringExtra("passID");
         pDialog = new ProgressDialog(this);
         retriveBalance(getApplicationContext(), GET_URL);
 
