@@ -249,7 +249,7 @@ public class PaymentActivity extends AppCompatActivity {
     public void transactionRecordProcess(){
         if(editTextPin_payment.getText().toString().equals(decaccount_Pin)){
             //---------------------------------------CHECK BALANCE---------------------------------------
-            if(accountBalance > Money){
+            if(accountBalance >= Money){
                 Intent successfulActivity = new Intent(this, SuccessfulActivity.class);
                 successfulActivity.putExtra("FULLDATE", fullFormatDate);
                 successfulActivity.putExtra("LOCATION", place);
