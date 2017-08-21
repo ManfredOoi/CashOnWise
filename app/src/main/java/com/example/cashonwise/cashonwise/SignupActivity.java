@@ -41,9 +41,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     EditText editTextName, editTextIC, editTextContact, editTextAddress, editTextPosCode, editTextEmail, editTextPassword, editTextRePassword, editTextPin, editTextRepin;
     String AES = "AES", password = "COW12345", homeAddress;
     String encryptedPassword, encryptedPin, decryptedPassword, decryptedPin;
-
     int numChar, numberM;
-    String accountID,LastID;
+    String accountID, LastID;
     String incrementAccountID = "";
     char checkChar;
     private ProgressDialog pDialog;
@@ -58,8 +57,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Mstate_arr, android.R.layout.simple_spinner_item);
         spinnerState.setAdapter(adapter);
         spinnerState.setOnItemSelectedListener(SignupActivity.this);
-
-        pDialog = new ProgressDialog(this);
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextIC = (EditText)findViewById(R.id.editTextIC);
         editTextContact = (EditText)findViewById(R.id.editTextContact);
@@ -70,8 +67,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         editTextRePassword = (EditText)findViewById(R.id.editTextRePassword);
         editTextPin = (EditText)findViewById(R.id.editTextPin);
         editTextRepin = (EditText)findViewById(R.id.editTextRePin);
+        pDialog = new ProgressDialog(this);
         findLastID(getApplicationContext(), GET_URL);
-
     }
 
     public void successfulSignUp(){
@@ -96,8 +93,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())){
                     if (editTextPin.getText().toString().equals(editTextRepin.getText().toString())){
                         try{
-
-                            //Toast.makeText(getApplicationContext(), "Error: " + LastID , Toast.LENGTH_LONG).show();
                             autoIDGenerate();
                             editTextName.getText().toString();
                             editTextIC.getText().toString();
@@ -120,13 +115,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             account.setPassword(encryptedPassword);
                             account.setPin(encryptedPin);
                             successfulSignUp();
+
                             try {
                                 makeServiceCall(this, "https://cash-on-wise.000webhostapp.com/signup.php", account);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(), "Incorrect Password of AES", Toast.LENGTH_LONG).show();
                         }
@@ -179,8 +174,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void autoIDGenerate(){
-
-        accountID = LastID;
+        accountID = "";
         if(accountID != null){
             numChar = 0;
             for(int i = 0 ; i < accountID.length(); i++){
@@ -229,14 +223,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         }
 
     }
+
+
     private void findLastID(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
-
         if (!pDialog.isShowing())
             pDialog.setMessage("Loading...");
-        pDialog.show();
 
+        pDialog.show();
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 url,
                 new Response.Listener<JSONArray>() {
@@ -245,12 +240,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         try {
                             //caList.clear();
                             for (int i = 0; i < response.length(); i++) {
-
                                 JSONObject accountResponse = (JSONObject) response.get(i);
                                 LastID = accountResponse.getString("id");
-
                             }
-
                             if (pDialog.isShowing())
                                 pDialog.dismiss();
                         } catch (Exception e) {
@@ -258,6 +250,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         }
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
@@ -266,13 +259,12 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             pDialog.dismiss();
                     }
                 });
-
         // Set the tag on the request.
         jsonObjectRequest.setTag(TAG);
-
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
+
     public void makeServiceCall(Context context, String url, final Account account) {
         //mPostCommentResponse.requestStarted();
         RequestQueue queue = Volley.newRequestQueue(context);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.example.cashonwise.cashonwise.SignupActivity;
 
 import java.security.MessageDigest;
 
@@ -55,6 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+
     }
 
     @Override
@@ -71,8 +73,6 @@ public class PaymentActivity extends AppCompatActivity {
                     date = resultQR.substring(0, 10);
                     date = date.replace("/", "");
                     place = resultQR.substring(10, resultQR.length() - 6);
-                    Toast.makeText(getApplicationContext(), date  + "_" + place,Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(), "Your Purchase location: " + place + " on " + date, Toast.LENGTH_LONG).show();
                     Money = Double.parseDouble(resultQR.substring(resultQR.length() - 6, resultQR.length())) / 100;
                     if(Money > 9999.99){
                         Toast.makeText(this, "Invalid QR Format. Please Refer To Cashier", Toast.LENGTH_SHORT).show();
