@@ -177,29 +177,32 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
         return matcher.matches();
     }
     public void onClickSave(View view){
-        if (editTextName.getText().toString().isEmpty() || editTextIC.getText().toString().isEmpty() || editTextContact.getText().toString().isEmpty()   || editTextEmail.getText().toString().isEmpty()){
+        if (editTextName.getText().toString().isEmpty() || editTextIC.getText().toString().isEmpty() || editTextContact.getText().toString().isEmpty()   || editTextEmail.getText().toString().isEmpty() ||editTextPassword.getText().toString().isEmpty()||editTextRePassword.getText().toString().isEmpty()){
             Toast.makeText(getApplicationContext(), "Please Fill Up All the Detail.", Toast.LENGTH_LONG).show();
         }else{
             if(isEmailValid(editTextEmail.getText().toString())){
                 if(editTextPassword.getText().toString().equals(editTextRePassword.getText().toString())) {
                     try {
                         BankAcc bankAcc = new BankAcc();
-
+                        autoIDGenerate();
                         if (checkBoxAddress.isChecked()) {
                             homeAddress = editTextAddress.getText().toString() + ", " + editTextPosCode.getText().toString() + ", " + spinnerState.getSelectedItem().toString();
                             bankAcc.setAddress(homeAddress);
                         } else {
                             bankAcc.setAddress(editTextFullAddress.getText().toString());
                         }
+                        encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
 
-                        autoIDGenerate();
-                        bankAcc.setId(userid);
+
+                        bankAcc.setId(incrementAccountID);
                         bankAcc.setName(editTextName.getText().toString());
                         bankAcc.setIcnum(editTextIC.getText().toString());
                         bankAcc.setContactnum(editTextContact.getText().toString());
-                        encryptedPassword = encrypt(editTextPassword.getText().toString(), password);
                         bankAcc.setEmail(editTextEmail.getText().toString());
                         bankAcc.setPassword(encryptedPassword);
+                        bankAcc.setType("");
+                        bankAcc.setBalance("");
+                        bankAcc.setCow_id(userid);
 
                         try {
 
@@ -303,7 +306,10 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
                     params.put("contactnum", bankAcc.getContactnum());
                     params.put("address", bankAcc.getAddress());
                     params.put("email", bankAcc.getEmail());
-                    params.put("password", bankAcc.getEmail());
+                    params.put("password", bankAcc.getPassword());
+                    params.put("type", bankAcc.getType());
+                    params.put("balance", bankAcc.getBalance());
+                    params.put("cow_id", bankAcc.getCow_id());
                     return params;
                 }
 
@@ -320,7 +326,7 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
         }
     }
     public void autoIDGenerate(){
-        bankid = "";
+        bankid = LastID;
         if(bankid != null){
             numChar = 0;
             for(int i = 0 ; i < bankid.length(); i++){
@@ -333,39 +339,39 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
             }
 
             if(numChar == 1){
-                bankid = bankid.replaceAll("C", "");
+                bankid = bankid.replaceAll("B", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = 'C' + Integer.toString(numberM);
+                incrementAccountID = 'B' + Integer.toString(numberM);
                 if(numberM > 9999){
                     incrementAccountID = "";
                 }
             }else if(numChar == 2){
-                bankid = bankid.replaceAll("C0", "");
+                bankid = bankid.replaceAll("B0", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C0" + Integer.toString(numberM);
+                incrementAccountID = "B0" + Integer.toString(numberM);
                 if(numberM == 1000){
-                    incrementAccountID = incrementAccountID.replaceAll("C0", "");
-                    incrementAccountID = "C" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B0", "");
+                    incrementAccountID = "B" + incrementAccountID;
                 }
             }else if(numChar == 3){
-                bankid = bankid.replaceAll("C00", "");
+                bankid = bankid.replaceAll("B00", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C00" + Integer.toString(numberM);
+                incrementAccountID = "B00" + Integer.toString(numberM);
                 if(numberM == 100){
-                    incrementAccountID = incrementAccountID.replaceAll("C00", "");
-                    incrementAccountID = "C0" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B00", "");
+                    incrementAccountID = "B0" + incrementAccountID;
                 }
             }else if(numChar == 4){
-                bankid = bankid.replaceAll("C000", "");
+                bankid = bankid.replaceAll("B000", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C000" + Integer.toString(numberM);
+                incrementAccountID = "B000" + Integer.toString(numberM);
                 if(numberM == 10){
-                    incrementAccountID = incrementAccountID.replaceAll("C000", "");
-                    incrementAccountID = "C00" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B000", "");
+                    incrementAccountID = "B00" + incrementAccountID;
                 }
             }
         }else{
-            incrementAccountID = "C0001";
+            incrementAccountID = "B0001";
         }
 
     }

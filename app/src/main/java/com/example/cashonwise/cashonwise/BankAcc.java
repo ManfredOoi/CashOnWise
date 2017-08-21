@@ -13,6 +13,7 @@ public class BankAcc {
     private String email;
     private String password;
     private String type;
+    private String balance;
     private String cow_id;
 
     public BankAcc() {
@@ -37,6 +38,27 @@ public class BankAcc {
         this.password = password;
         this.type = type;
         this.cow_id = cow_id;
+    }
+
+    public BankAcc(String id, String name, String icnum, String contactnum, String address, String email, String password, String type, String balance, String cow_id) {
+        this.id = id;
+        this.name = name;
+        this.icnum = icnum;
+        this.contactnum = contactnum;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+        this.balance = balance;
+        this.cow_id = cow_id;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public String getId() {

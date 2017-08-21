@@ -5,15 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.util.AsyncListUtil;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,9 +29,19 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "com.example.cashonwise.cashonwise";
@@ -39,10 +52,13 @@ public class LoginActivity extends AppCompatActivity {
     private Button signUpButton;
     private Button loginButton;
     private Button forgotButton;
-    private String AES = "AES", password = "COW12345", userid,account_password,decaccount_password;
+    private String AES = "AES", password = "COW12345", userid,account_password, decaccount_password, name = "", email = "", subject = "Cash On Wise Forget Password Request", content = "";
     private ProgressDialog pDialog;
     RequestQueue queue;
     private static String GET_URL = "https://cash-on-wise.000webhostapp.com/account_detail.php";
+    private Session session = null;
+    private Context context = null;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
         retriveIDPass(getApplicationContext(), GET_URL);
-
+        context = this;
     }
     @Override
     public void onResume(){
@@ -75,6 +91,13 @@ public class LoginActivity extends AppCompatActivity {
         retriveIDPass(getApplicationContext(), GET_URL);
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
     private boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -86,21 +109,111 @@ public class LoginActivity extends AppCompatActivity {
     public void ForgotPassword(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_forget_password, null);
-        EditText editTextLoginId = (EditText)mView.findViewById(R.id.editTextLoginId);
+        final EditText editTextLoginId = (EditText)mView.findViewById(R.id.editTextLoginId);
         Button buttonConfirm = (Button)mView.findViewById(R.id.buttonConfirm);
+        Button buttonCancel = (Button)mView.findViewById(R.id.buttonCancel);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Code to verify id and retrieve email
-                Toast.makeText(LoginActivity.this,
-                        "Password successful send to your email.",
-                        Toast.LENGTH_SHORT).show();
+                if(editTextLoginId.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please enter your Login ID", Toast.LENGTH_SHORT).show();
+                }else {
+                    // check existing ID, get Email address and decrypt password
+                    boolean check = false;
+
+                    // Looping to check LoginID is valid or not
+                    for (int i = 0; i < acList.size(); i++) {
+                        userid = acList.get(i).getId();
+
+                        if (editTextLoginId.getText().toString().equalsIgnoreCase(userid)) {
+                            decaccount_password = acList.get(i).getPassword();
+                            email = acList.get(i).getEmail();
+                            name = acList.get(i).getName();
+                            content = "Dear Mr./Ms. " + name + ", </br></br>Your password is : <b>" + decaccount_password + "</b>.</br></br>Best regards,</br>Teddy Chow</br>Senior Officer</br>Cash On Wise";
+
+                            try{ // Code for email
+                                Properties props = new Properties();
+                                props.put("mail.smtp.host", "smtp.gmail.com");
+                                props.put("mail.smtp.socketFactory.port", "465");
+                                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                                props.put("mail.smtp.auth", "true");
+                                props.put("mail.smtp.port", "465");
+
+                                session = Session.getDefaultInstance(props, new Authenticator() {
+                                    @Override
+                                    protected PasswordAuthentication getPasswordAuthentication() {
+                                        return new PasswordAuthentication("chowkm-pa13@student.tarc.edu.my", "rsd2grp2oct16");
+                                    }
+                                });
+                                pDialog.setMessage("Sending your password to " + email);
+                                pDialog.show();
+
+                                RetrieveFeedTask task = new RetrieveFeedTask();
+                                task.execute();
+                                dialog.dismiss();
+                            }catch (Exception ex){
+                                Toast.makeText(getApplicationContext(),
+                                        "Error : 149 " + ex.getMessage().toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            check = true;
+                            break;
+                        }
+                    }
+
+                    if (check == false){
+                        Toast.makeText(getApplicationContext(), "Invalid ID or Password", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
             }
         });
         builder.setView(mView);
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
+    }
+
+    private class RetrieveFeedTask extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("chowkm-pa13@student.tarc.edu.my"));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                message.setSubject(subject);
+                message.setContent(content, "text/html; charset=utf-8");
+
+                Transport.send(message);
+
+                Toast.makeText(getApplicationContext(),
+                        "Password successful send to your email.",
+                        Toast.LENGTH_SHORT).show();
+            }catch (MessagingException ex){
+                ex.printStackTrace();
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Password sent", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void verifyAccount(View view){
@@ -153,8 +266,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                 userid = accountResponse.getString("id");
                                 account_password = accountResponse.getString("password");
+                                name = accountResponse.getString("name");
+                                email = accountResponse.getString("email");
                                 decaccount_password = decrypt(account_password, password);
-                                Account account = new Account(userid, decaccount_password);
+                                Account account = new Account(userid, decaccount_password, name, email);
                                 acList.add(account);
                             } catch (Exception e) {
                                 //e.printStackTrace();
