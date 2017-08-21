@@ -33,6 +33,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 public class LoginActivity extends AppCompatActivity {
+    //public static String ACCOUNTID;
     public static final String TAG = "com.example.cashonwise.cashonwise";
     List<Account> acList;
     private EditText editTextID;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton = (Button)findViewById(R.id.signUpButton);
         loginButton = (Button)findViewById(R.id.loginButton);
         forgotButton = (Button)findViewById(R.id.buttonForgot);
+
         acList = new ArrayList<>();
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
@@ -109,11 +111,14 @@ public class LoginActivity extends AppCompatActivity {
                 userid = acList.get(i).getId();
                 decaccount_password = acList.get(i).getPassword();
                 if (editTextID.getText().toString().equals(userid) && editTextPassword.getText().toString().equals(decaccount_password)) {
+                    Toast.makeText(getApplicationContext(), "Welcome "+userid, Toast.LENGTH_LONG).show();
 
                     // Success and proceed
                     Intent goToMenuNavi = new Intent(this, MenuActivity.class);
+                    goToMenuNavi.putExtra("msg",userid );
                     startActivity(goToMenuNavi);
                     check = true;
+
                 }
 
             }
@@ -149,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                                 acList.add(account);
                             } catch (Exception e) {
                                 //e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Error: " +decaccount_password +"  "+account_password, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Error: " , Toast.LENGTH_LONG).show();
                             }
                             }
 

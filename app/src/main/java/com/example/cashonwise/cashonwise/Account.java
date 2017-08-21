@@ -13,13 +13,17 @@ public class Account {
     private String email;
     private String password;
     private String pin;
+    private String balance;
+
 
     public Account() {
 
     }
 
-    public Account(String id) {
+    public Account(String id, String name ,String balance) {
         this.id = id;
+        this.name = name;
+        this.balance = balance;
     }
 
     public Account(String id, String password) {
@@ -54,6 +58,14 @@ public class Account {
         this.email = email;
         this.password = password;
         this.pin = pin;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public String getId() {

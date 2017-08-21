@@ -20,10 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    String userid;
+    private static final String ARG_PARAM1 = "param1";
+    private String mParam1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        userid = getIntent().getStringExtra("msg");
 
     }
 
@@ -88,6 +94,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_balance) {
             Intent intent = new Intent(this, BalanceActivity.class);
+            intent.putExtra("msg", userid);
             startActivity(intent);
         } else if (id == R.id.nav_transaction_history) {
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
