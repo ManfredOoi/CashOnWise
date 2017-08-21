@@ -148,7 +148,6 @@ public class PaymentActivity extends AppCompatActivity {
                             pDialog.dismiss();
                     }
                 });
-
         // Set the tag on the request.
         jsonObjectRequest.setTag(TAG);
 
