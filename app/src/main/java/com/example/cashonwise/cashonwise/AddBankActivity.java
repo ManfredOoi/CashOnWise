@@ -324,7 +324,7 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
         }
     }
     public void autoIDGenerate(){
-        bankid = "";
+        bankid = LastID;
         if(bankid != null){
             numChar = 0;
             for(int i = 0 ; i < bankid.length(); i++){
@@ -337,39 +337,39 @@ public class AddBankActivity extends AppCompatActivity  implements AdapterView.O
             }
 
             if(numChar == 1){
-                bankid = bankid.replaceAll("C", "");
+                bankid = bankid.replaceAll("B", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = 'C' + Integer.toString(numberM);
+                incrementAccountID = 'B' + Integer.toString(numberM);
                 if(numberM > 9999){
                     incrementAccountID = "";
                 }
             }else if(numChar == 2){
-                bankid = bankid.replaceAll("C0", "");
+                bankid = bankid.replaceAll("B0", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C0" + Integer.toString(numberM);
+                incrementAccountID = "B0" + Integer.toString(numberM);
                 if(numberM == 1000){
-                    incrementAccountID = incrementAccountID.replaceAll("C0", "");
-                    incrementAccountID = "C" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B0", "");
+                    incrementAccountID = "B" + incrementAccountID;
                 }
             }else if(numChar == 3){
-                bankid = bankid.replaceAll("C00", "");
+                bankid = bankid.replaceAll("B00", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C00" + Integer.toString(numberM);
+                incrementAccountID = "B00" + Integer.toString(numberM);
                 if(numberM == 100){
-                    incrementAccountID = incrementAccountID.replaceAll("C00", "");
-                    incrementAccountID = "C0" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B00", "");
+                    incrementAccountID = "B0" + incrementAccountID;
                 }
             }else if(numChar == 4){
-                bankid = bankid.replaceAll("C000", "");
+                bankid = bankid.replaceAll("B000", "");
                 numberM = Integer.parseInt(bankid) + 1;
-                incrementAccountID = "C000" + Integer.toString(numberM);
+                incrementAccountID = "B000" + Integer.toString(numberM);
                 if(numberM == 10){
-                    incrementAccountID = incrementAccountID.replaceAll("C000", "");
-                    incrementAccountID = "C00" + incrementAccountID;
+                    incrementAccountID = incrementAccountID.replaceAll("B000", "");
+                    incrementAccountID = "B00" + incrementAccountID;
                 }
             }
         }else{
-            incrementAccountID = "C0001";
+            incrementAccountID = "B0001";
         }
 
     }
